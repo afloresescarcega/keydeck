@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KeyDeck — Open-Source BYOK iOS Utility Keyboard</title>
+  <meta name="description" content="Rambler voice dictation, Voice Edit, and an Alfred-style command palette for iOS. Bring your own Gemini or OpenAI API key — zero backend, MIT licensed.">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-subtle: #f5f5f7;
+      --surface: #ffffff;
+      --surface-elevated: #f2f2f7;
+      --text: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --border: rgba(0, 0, 0, 0.09);
+      --border-strong: rgba(0, 0, 0, 0.14);
+      --accent: #007aff;
+      --accent-soft: rgba(0, 122, 255, 0.11);
+      --green: #34c759;
+      --red: #ff3b30;
+      --orange: #ff9500;
+      --key-bg: #ffffff;
+      --key-sec: #e5e5ea;
+      --key-shadow: rgba(0, 0, 0, 0.16);
+      --phone-shell: #1d1d1f;
+      --kbd-tray: #d8dce3;
+      --code-bg: #f5f5f7;
+      --radius: 14px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b0b0d;
+        --bg-subtle: #141417;
+        --surface: #18181c;
+        --surface-elevated: #222227;
+        --text: #f5f5f7;
+        --text-secondary: #98989f;
+        --border: rgba(255, 255, 255, 0.10);
+        --border-strong: rgba(255, 255, 255, 0.16);
+        --accent: #0a84ff;
+        --accent-soft: rgba(10, 132, 255, 0.16);
+        --key-bg: #3a3a3f;
+        --key-sec: #27272c;
+        --key-shadow: rgba(0, 0, 0, 0.50);
+        --phone-shell: #2c2c30;
+        --kbd-tray: #1c1c20;
+        --code-bg: #141418;
+      }
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 650;
+      font-size: 16px;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+    .brand:hover { text-decoration: none; }
+    .brand img { width: 28px; height: 28px; border-radius: 7px; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 14px;
+    }
+    .nav-links a { color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+    /* Hero */
+    .hero {
+      padding: 64px 0 72px;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; padding: 40px 0 56px; gap: 40px; }
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      padding: 5px 11px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-subtle);
+      margin-bottom: 18px;
+    }
+
+    .dot-live {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      display: inline-block;
+    }
+
+    h1 {
+      font-size: clamp(34px, 4.6vw, 48px);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .lead {
+      font-size: 17px;
+      color: var(--text-secondary);
+      max-width: 480px;
+      margin-bottom: 28px;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 11px 18px;
+      border-radius: 10px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.14s ease, opacity 0.14s ease;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn:hover { text-decoration: none; opacity: 0.92; }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .btn-secondary {
+      background: var(--bg-subtle);
+      color: var(--text);
+      border-color: var(--border-strong);
+    }
+
+    .meta-line {
+      font-size: 13px;
+      color: var(--text-secondary);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    /* Interactive iPhone Mockup */
+    .phone-wrap {
+      display: flex;
+      justify-content: center;
+    }
+
+    .phone {
+      width: 340px;
+      border-radius: 42px;
+      background: var(--surface);
+      border: 6px solid var(--phone-shell);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.16);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .phone-status {
+      padding: 12px 20px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .island {
+      background: #000000;
+      color: #ffffff;
+      border-radius: 999px;
+      padding: 5px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+    .island-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+    .island.off .island-dot { background: #636366; }
+    .island.rec .island-dot { background: var(--red); }
+
+    .chat-area {
+      padding: 14px 16px 12px;
+      min-height: 118px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 8px;
+      background: var(--bg-subtle);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .chat-label {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-secondary);
+    }
+
+    .composer {
+      background: var(--surface);
+      border: 1px solid var(--border-strong);
+      border-radius: 16px;
+      padding: 10px 12px;
+      font-size: 13.5px;
+      min-height: 54px;
+      color: var(--text);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .composer.empty { color: var(--text-secondary); }
+
+    .kbd {
+      background: var(--kbd-tray);
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .kbd-row {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .keycap {
+      background: var(--key-bg);
+      color: var(--text);
+      border: 0.5px solid var(--border);
+      border-radius: 10px;
+      box-shadow: 0 1px 0 var(--key-shadow);
+      font-family: inherit;
+      cursor: pointer;
+      transition: transform 0.12s ease;
+    }
+    .keycap:active { transform: scale(0.97); }
+    .keycap.sec { background: var(--key-sec); }
+
+    .search-trigger {
+      flex: 1;
+      height: 36px;
+      padding: 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      color: var(--text-secondary);
+      text-align: left;
+    }
+
+    .kill-btn {
+      height: 36px;
+      padding: 0 10px;
+      font-size: 11.5px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .kill-btn.live { color: var(--red); }
+    .kill-btn.off { color: var(--text-secondary); }
+
+    .voice-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+    }
+
+    .voice-key {
+      padding: 11px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .voice-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .voice-icon.solid { background: var(--accent); color: #fff; }
+    .voice-icon.soft { background: var(--accent-soft); color: var(--accent); }
+
+    .voice-title { font-size: 13.5px; font-weight: 600; display: block; }
+    .voice-sub { font-size: 11px; color: var(--text-secondary); display: block; }
+
+    .chips {
+      display: flex;
+      gap: 5px;
+      overflow-x: auto;
+      padding-bottom: 1px;
+    }
+    .chip {
+      height: 30px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 500;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .chip.undo { color: var(--orange); font-weight: 600; }
+
+    /* Palette mode inside demo */
+    .palette-input {
+      flex: 1;
+      height: 34px;
+      border-radius: 9px;
+      border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+      background: var(--surface);
+      color: var(--text);
+      padding: 0 10px;
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+    }
+
+    .palette-results {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      min-height: 98px;
+    }
+
+    .result-item {
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-align: left;
+      gap: 8px;
+    }
+    .result-title { font-size: 13px; font-weight: 600; display: block; }
+    .result-sub { font-size: 11px; color: var(--text-secondary); display: block; }
+    .result-badge {
+      font-size: 10.5px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      color: var(--text-secondary);
+      background: var(--bg-subtle);
+      padding: 2px 6px;
+      border-radius: 999px;
+    }
+
+    .demo-presets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    .preset-btn {
+      font-size: 11px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      padding: 4px 8px;
+      border-radius: 7px;
+      border: 0.5px solid var(--border);
+      background: var(--key-bg);
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .bottom-bar {
+      display: flex;
+      gap: 6px;
+    }
+    .space-key { flex: 1; height: 34px; font-size: 12px; }
+    .util-key { width: 46px; height: 34px; font-size: 12px; }
+
+    /* Sections */
+    section {
+      padding: 64px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    h2 {
+      font-size: 28px;
+      letter-spacing: -0.025em;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .section-lead {
+      color: var(--text-secondary);
+      font-size: 16px;
+      max-width: 600px;
+      margin-bottom: 36px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 780px) {
+      .grid-3 { grid-template-columns: 1fr; }
+    }
+
+    .feature {
+      padding: 22px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .feature h3 {
+      font-size: 16px;
+      font-weight: 650;
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .feature p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+    }
+
+    .feature-code {
+      margin-top: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+      color: var(--text);
+      background: var(--bg-subtle);
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .sec-row code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12.5px;
+      overflow-wrap: anywhere;
+    }
+
+    /* Security Table */
+    .security-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 720px) {
+      .security-grid { grid-template-columns: 1fr; }
+    }
+
+    .sec-row {
+      padding: 16px 18px;
+      border-radius: 12px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+    }
+    .sec-row strong {
+      display: block;
+      font-size: 14.5px;
+      margin-bottom: 4px;
+    }
+    .sec-row span {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+    }
+
+    /* Code block */
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 13px;
+      line-height: 1.65;
+      color: var(--text);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0 48px;
+      font-size: 13.5px;
+      color: var(--text-secondary);
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .footer-links a { color: var(--text-secondary); }
+    .footer-links a:hover { color: var(--text); }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="container nav-inner">
+      <a class="brand" href="#">
+        <svg width="28" height="28" viewBox="0 0 1024 1024" aria-hidden="true" style="border-radius:7px;flex-shrink:0;">
+          <rect width="1024" height="1024" rx="220" fill="#1C1C1E"/>
+          <rect x="136" y="136" width="752" height="712" rx="156" fill="#2A2A2E" stroke="#FFFFFF" stroke-opacity="0.14" stroke-width="10"/>
+          <rect x="292" y="424" width="52" height="136" rx="26" fill="#FFFFFF" opacity="0.45"/>
+          <rect x="388" y="340" width="52" height="304" rx="26" fill="#FFFFFF" opacity="0.82"/>
+          <rect x="484" y="268" width="56" height="448" rx="28" fill="#0A84FF"/>
+          <rect x="584" y="340" width="52" height="304" rx="26" fill="#FFFFFF" opacity="0.82"/>
+          <rect x="680" y="424" width="52" height="136" rx="26" fill="#FFFFFF" opacity="0.45"/>
+        </svg>
+        <span>KeyDeck</span>
+      </a>
+      <div class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#security">Security</a>
+        <a href="#quickstart">Quick Start</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="https://github.com/afloresescarcega/keydeck">GitHub</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="hero">
+      <div>
+        <div class="eyebrow">
+          <span class="dot-live"></span>
+          Open Source · iOS 17+ · MIT License
+        </div>
+        <h1>Better dictation &amp; an Alfred palette on iPhone.</h1>
+        <p class="lead">
+          Keep Apple's native keyboard for everyday typing. Switch to KeyDeck via the globe key for Rambler voice dictation, Voice Edit, inline math, dynamic snippets, and clipboard clips — powered by your own Gemini or OpenAI key.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="https://github.com/afloresescarcega/keydeck">View on GitHub</a>
+          <a class="btn btn-secondary" href="#quickstart">Build on Your iPhone</a>
+        </div>
+        <div class="meta-line">
+          <span>Zero backend</span>
+          <span>Swift 6 + SwiftUI</span>
+          <span>BYOK Gemini &amp; OpenAI</span>
+        </div>
+      </div>
+
+      <!-- Interactive Demo -->
+      <div class="phone-wrap">
+        <div class="phone" aria-label="Interactive KeyDeck keyboard preview">
+          <div class="phone-status">
+            <span>9:41</span>
+            <div class="island" id="demoIsland">
+              <span class="island-dot"></span>
+              <span id="demoIslandText">ON</span>
+            </div>
+            <span>5G</span>
+          </div>
+
+          <div class="chat-area">
+            <span class="chat-label">Try the live demo below</span>
+            <div class="composer empty" id="demoComposer">Tap Rambler or open the Alfred bar…</div>
+          </div>
+
+          <!-- Dashboard Mode -->
+          <div class="kbd" id="dashboardView">
+            <div class="kbd-row">
+              <button class="keycap sec search-trigger" id="openPaletteBtn" type="button">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                Commands, snippets, math…
+              </button>
+              <button class="keycap sec kill-btn live" id="killMicBtn" type="button">Kill Mic</button>
+            </div>
+
+            <div class="voice-grid">
+              <button class="keycap voice-key" id="ramblerBtn" type="button">
+                <span class="voice-icon solid">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v20M7 7v10M17 7v10M2 10v4M22 10v4"/></svg>
+                </span>
+                <div>
+                  <span class="voice-title">Rambler</span>
+                  <span class="voice-sub" id="ramblerSub">Ready</span>
+                </div>
+              </button>
+              <button class="keycap voice-key" id="voiceEditBtn" type="button">
+                <span class="voice-icon soft">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m15 4 5 5L7 22H2v-5Z"/></svg>
+                </span>
+                <div>
+                  <span class="voice-title">Voice Edit</span>
+                  <span class="voice-sub">Transform field text</span>
+                </div>
+              </button>
+            </div>
+
+            <div class="chips" id="dashboardChips">
+              <button class="keycap chip" type="button" data-insert-date>Today ISO Date</button>
+              <button class="keycap chip" type="button" data-open-query="intro ">Email Intro</button>
+              <button class="keycap chip" type="button" data-open-query="18% of 240">18% of 240</button>
+            </div>
+
+            <div class="bottom-bar">
+              <button class="keycap space-key" type="button" id="spaceBtn">space</button>
+              <button class="keycap sec util-key" type="button" id="clearDemoBtn">Clear</button>
+            </div>
+          </div>
+
+          <!-- Alfred Palette Mode -->
+          <div class="kbd" id="paletteView" style="display:none;">
+            <div class="kbd-row">
+              <button class="keycap sec util-key" id="closePaletteBtn" type="button" style="width:34px;height:34px;">←</button>
+              <input class="palette-input" id="paletteInput" type="text" placeholder="Type math, 72f to c, intro Bob, uuid…">
+            </div>
+
+            <div class="palette-results" id="paletteResults"></div>
+
+            <div class="demo-presets">
+              <button class="preset-btn" type="button" data-preset="18% of 240">18% of 240</button>
+              <button class="preset-btn" type="button" data-preset="72f to c">72f to c</button>
+              <button class="preset-btn" type="button" data-preset="intro Bob">intro Bob</button>
+              <button class="preset-btn" type="button" data-preset="uuid">uuid</button>
+              <button class="preset-btn" type="button" data-preset="shrug">shrug</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="features">
+      <h2>Built as a dedicated utility deck</h2>
+      <p class="section-lead">
+        Instead of fighting Apple's autocorrect and swipe engine, KeyDeck pairs with the native keyboard via the globe key and focuses purely on high-leverage voice and command workflows.
+      </p>
+
+      <div class="grid-3">
+        <div class="feature">
+          <h3>Rambler &amp; Voice Edit</h3>
+          <p>
+            Speak messily, pause, or correct yourself mid-sentence. Single-pass Gemini audio (or OpenAI STT + LLM) turns rambles into crisp text, auto-inserts immediately, and gives you one-tap Undo, Shorter, Bullets, Casual, Work, and Raw chips.
+          </p>
+          <div class="feature-code">"uh meet at 3—actually make it 4" → Let's meet at 4.</div>
+        </div>
+
+        <div class="feature">
+          <h3>Alfred Palette + Mini-QWERTY</h3>
+          <p>
+            Tap the search bar to open a live fuzzy-search palette with a compact built-in mini-QWERTY. Evaluate math, convert units &amp; timezones, generate UUIDs/timestamps, search clipboard clips, or expand parameterized snippets.
+          </p>
+          <div class="feature-code">18% of 240 → 43.2 · 3pm est to cst → 2:00 PM CT</div>
+        </div>
+
+        <div class="feature">
+          <h3>Explicit Mic Control</h3>
+          <p>
+            A persistent background audio session enables instant in-place recording without leaving your app — and a red Kill Mic button right in the keyboard, Dynamic Island, or Auto-Kill after dictation shuts the mic completely off whenever you want.
+          </p>
+          <div class="feature-code">Mic On → 1 tap Kill Mic → hardware off immediately</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="security">
+      <h2>Zero backend. Hardened for daily use.</h2>
+      <p class="section-lead">
+        Every network call goes straight from your iPhone to Google Gemini or OpenAI using your own API key. No relay servers, no analytics, no telemetry.
+      </p>
+
+      <div class="security-grid">
+        <div class="sec-row">
+          <strong>Device-Bound Keychain</strong>
+          <span>API keys are stored with <code>kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly</code> so they never leave your device in backups.</span>
+        </div>
+        <div class="sec-row">
+          <strong>Ephemeral Zero-Cache HTTPS</strong>
+          <span>AI clients use ephemeral <code>URLSession</code>s with <code>urlCache = nil</code> and pass Gemini keys in the <code>x-goog-api-key</code> header, never in URL query strings.</span>
+        </div>
+        <div class="sec-row">
+          <strong>Password Field Protection</strong>
+          <span><code>KeyboardViewController</code> checks <code>isSecureTextEntry</code> and never reads or forwards text from password or PIN inputs.</span>
+        </div>
+        <div class="sec-row">
+          <strong>App Store Privacy Manifests</strong>
+          <span>Ships with validated <code>PrivacyInfo.xcprivacy</code> across all three targets, strict ATS (<code>NSAllowsArbitraryLoads = false</code>), and encrypted App Group files.</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="quickstart">
+      <h2>Build on your iPhone in 4 commands</h2>
+      <p class="section-lead">
+        Requires Xcode 16+, iOS 17+, XcodeGen, and an Apple Developer account (required by Apple for App Groups, Shared Keychain, and Live Activities).
+      </p>
+
+<pre><code>git clone https://github.com/afloresescarcega/keydeck.git
+cd keydeck
+cp Config/Local.xcconfig.example Config/Local.xcconfig
+# Edit Config/Local.xcconfig with your Apple Team ID &amp; bundle prefix
+xcodegen generate &amp;&amp; open KeyDeck.xcodeproj</code></pre>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span>MIT License © 2026 Alex Flores Escarcega</span>
+      <div class="footer-links">
+        <a href="https://github.com/afloresescarcega/keydeck">Repository</a>
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="https://github.com/afloresescarcega/keydeck/blob/main/SECURITY.md">Security</a>
+        <a href="https://github.com/afloresescarcega/keydeck/blob/main/LICENSE">MIT License</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const composer = document.getElementById('demoComposer');
+    const dashboardView = document.getElementById('dashboardView');
+    const paletteView = document.getElementById('paletteView');
+    const paletteInput = document.getElementById('paletteInput');
+    const paletteResults = document.getElementById('paletteResults');
+    const dashboardChips = document.getElementById('dashboardChips');
+    const island = document.getElementById('demoIsland');
+    const islandText = document.getElementById('demoIslandText');
+    const killMicBtn = document.getElementById('killMicBtn');
+    const ramblerSub = document.getElementById('ramblerSub');
+
+    let micLive = true;
+    let demoText = '';
+    let lastRamble = null;
+
+    function renderComposer() {
+      if (!demoText) {
+        composer.textContent = 'Tap Rambler or open the Alfred bar…';
+        composer.classList.add('empty');
+      } else {
+        composer.textContent = demoText;
+        composer.classList.remove('empty');
+      }
+    }
+
+    function setMicState(live) {
+      micLive = live;
+      island.className = live ? 'island' : 'island off';
+      islandText.textContent = live ? 'ON' : 'OFF';
+      killMicBtn.className = 'keycap sec kill-btn ' + (live ? 'live' : 'off');
+      killMicBtn.textContent = live ? 'Kill Mic' : 'Mic Off';
+      ramblerSub.textContent = live ? 'Ready' : 'Tap to arm';
+    }
+
+    killMicBtn.addEventListener('click', () => setMicState(!micLive));
+
+    document.getElementById('clearDemoBtn').addEventListener('click', () => {
+      demoText = '';
+      lastRamble = null;
+      renderDefaultChips();
+      renderComposer();
+    });
+
+    document.getElementById('spaceBtn').addEventListener('click', () => {
+      demoText += ' ';
+      renderComposer();
+    });
+
+    function renderDefaultChips() {
+      dashboardChips.innerHTML = `
+        <button class="keycap chip" type="button" data-insert-date>Today ISO Date</button>
+        <button class="keycap chip" type="button" data-open-query="intro ">Email Intro</button>
+        <button class="keycap chip" type="button" data-open-query="18% of 240">18% of 240</button>
+      `;
+      bindDefaultChips();
+    }
+
+    function renderTweakChips() {
+      dashboardChips.innerHTML = `
+        <button class="keycap chip undo" type="button" id="tweakUndo">Undo</button>
+        <button class="keycap chip" type="button" id="tweakShorter">Shorter</button>
+        <button class="keycap chip" type="button" id="tweakBullets">Bullets</button>
+        <button class="keycap chip" type="button" id="tweakRaw">Raw</button>
+      `;
+      document.getElementById('tweakUndo').onclick = () => { demoText = ''; lastRamble = null; renderDefaultChips(); renderComposer(); };
+      document.getElementById('tweakShorter').onclick = () => { demoText = 'Can we move standup to 4 PM?'; renderComposer(); };
+      document.getElementById('tweakBullets').onclick = () => { demoText = '- Move standup to 4 PM\n- Share final build notes first'; renderComposer(); };
+      document.getElementById('tweakRaw').onclick = () => { demoText = 'uh hey can we move standup to 3 actually make it 4 and I will share the build notes first'; renderComposer(); };
+    }
+
+    document.getElementById('ramblerBtn').addEventListener('click', () => {
+      if (!micLive) setMicState(true);
+      island.className = 'island rec';
+      islandText.textContent = 'REC';
+      ramblerSub.textContent = 'Listening…';
+      setTimeout(() => {
+        island.className = 'island';
+        islandText.textContent = 'ON';
+        ramblerSub.textContent = 'Ready';
+        demoText = "Hey, can we move standup to 4 PM? I'll share the final build notes beforehand.";
+        lastRamble = demoText;
+        renderComposer();
+        renderTweakChips();
+      }, 650);
+    });
+
+    document.getElementById('voiceEditBtn').addEventListener('click', () => {
+      if (!demoText) {
+        demoText = "Hey, can we move standup to 4 PM?";
+      } else {
+        demoText = "Quick check — are you free for standup at 4 PM?";
+      }
+      renderComposer();
+    });
+
+    function openPalette(initial = '') {
+      dashboardView.style.display = 'none';
+      paletteView.style.display = 'flex';
+      paletteInput.value = initial;
+      renderPaletteResults(initial);
+      paletteInput.focus();
+    }
+
+    function closePalette() {
+      paletteView.style.display = 'none';
+      dashboardView.style.display = 'flex';
+    }
+
+    function bindDefaultChips() {
+      dashboardChips.querySelectorAll('[data-insert-date]').forEach(btn => {
+        btn.onclick = () => { demoText += new Date().toISOString().slice(0, 10); renderComposer(); };
+      });
+      dashboardChips.querySelectorAll('[data-open-query]').forEach(btn => {
+        btn.onclick = () => openPalette(btn.getAttribute('data-open-query'));
+      });
+    }
+    bindDefaultChips();
+
+    document.getElementById('openPaletteBtn').addEventListener('click', () => openPalette(''));
+    document.getElementById('closePaletteBtn').addEventListener('click', closePalette);
+
+    document.querySelectorAll('[data-preset]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const q = btn.getAttribute('data-preset');
+        paletteInput.value = q;
+        renderPaletteResults(q);
+      });
+    });
+
+    function evaluateQuery(raw) {
+      const q = raw.trim();
+      const l = q.toLowerCase();
+      const items = [];
+
+      const pct = l.match(/^(\d+(?:\.\d+)?)\s*%\s+of\s+(\d+(?:\.\d+)?)$/);
+      if (pct) {
+        const val = +((parseFloat(pct[1]) / 100) * parseFloat(pct[2])).toFixed(4);
+        items.push({ title: String(val), sub: `${pct[1]}% of ${pct[2]}`, badge: 'Math', insert: String(val) });
+      }
+
+      const temp = l.match(/^([+-]?\d+(?:\.\d+)?)\s*([cf])\s+(?:to|in)\s+([cf])$/);
+      if (temp && temp[2] !== temp[3]) {
+        const v = parseFloat(temp[1]);
+        const out = temp[2] === 'f' ? `${+(((v - 32) * 5) / 9).toFixed(1)}°C` : `${+((v * 9) / 5 + 32).toFixed(1)}°F`;
+        items.push({ title: out, sub: `${v}${temp[2].toUpperCase()} → ${temp[3].toUpperCase()}`, badge: 'Unit', insert: out });
+      }
+
+      if (l === 'uuid') {
+        const id = crypto.randomUUID ? crypto.randomUUID().toUpperCase() : '9F2C4D10-6A1B-4C8E-8B20-3E7A19F4C211';
+        items.push({ title: id, sub: 'Generate UUID v4', badge: 'Gen', insert: id });
+      }
+      if (l === 'shrug') {
+        items.push({ title: '¯\\_(ツ)_/¯', sub: 'Insert shrug', badge: 'Sym', insert: '¯\\_(ツ)_/¯' });
+      }
+      if (l.startsWith('intro')) {
+        const arg = q.slice(5).trim() || 'Alex';
+        const out = `Hey ${arg},\n\nHope your week is going well! `;
+        items.push({ title: `Email Intro: ${arg}`, sub: out.replace(/\n+/g, ' '), badge: ';intro', insert: out });
+      }
+      if (!q || 'date'.includes(l)) {
+        const today = new Date().toISOString().slice(0, 10);
+        items.push({ title: 'Today ISO Date', sub: today, badge: ';date', insert: today });
+      }
+      if (!q) {
+        items.push({ title: 'Email Intro Snippet', sub: 'Type: intro <Recipient>', badge: ';intro', insert: 'Hey Alex,\n\nHope your week is going well! ' });
+      }
+      return items.slice(0, 2);
+    }
+
+    function renderPaletteResults(query) {
+      const results = evaluateQuery(query);
+      if (!results.length) {
+        paletteResults.innerHTML = '<div style="font-size:12px;color:var(--text-secondary);padding:10px;">Try "18% of 240", "72f to c", "intro Bob", or "uuid"</div>';
+        return;
+      }
+      paletteResults.innerHTML = '';
+      results.forEach((item, idx) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'keycap result-item' + (idx === 0 ? '' : ' sec');
+        btn.innerHTML = `
+          <div style="min-width:0;overflow:hidden;">
+            <span class="result-title" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${item.title}</span>
+            <span class="result-sub" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${item.sub}</span>
+          </div>
+          <span class="result-badge">${item.badge}</span>
+        `;
+        btn.onclick = () => {
+          demoText = item.insert;
+          renderComposer();
+          closePalette();
+        };
+        paletteResults.appendChild(btn);
+      });
+    }
+
+    paletteInput.addEventListener('input', (e) => renderPaletteResults(e.target.value));
+    paletteInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const first = evaluateQuery(paletteInput.value)[0];
+        if (first) {
+          demoText = first.insert;
+          renderComposer();
+          closePalette();
+        }
+      }
+    });
+  </script>
+</body>
+</html>

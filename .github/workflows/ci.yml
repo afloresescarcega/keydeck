@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-audit:
+    runs-on: macos-15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run KeyDeckKit unit tests
+        run: swift test --package-path Packages/KeyDeckKit
+
+      - name: Validate Apple Privacy Manifests
+        run: |
+          for manifest in Sources/*/PrivacyInfo.xcprivacy; do
+            echo "Linting $manifest"
+            plutil -lint "$manifest"
+          done
+
+      - name: Verify no personal Team ID or hardcoded secrets committed
+        run: |
+          if git grep -E "(sk-[A-Za-z0-9]{20,}|AIza[0-9A-Za-z_-]{35})" -- ':!.github/workflows/ci.yml'; then
+            echo "Potential hardcoded API key detected!"
+            exit 1
+          fi
+          if test -f Config/Local.xcconfig; then
+            echo "Config/Local.xcconfig must never be committed!"
+            exit 1
+          fi

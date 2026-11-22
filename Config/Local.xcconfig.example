@@ -1,0 +1,8 @@
+// Copy this file to Config/Local.xcconfig and replace with your own Apple Developer Team ID and reverse-DNS prefix.
+// Then run `xcodegen generate` and open KeyDeck.xcodeproj.
+
+KEYDECK_DEVELOPMENT_TEAM = YOUR_TEAM_ID
+KEYDECK_BUNDLE_PREFIX = com.yourname
+KEYDECK_APP_GROUP = group.com.yourname.keydeck
+KEYDECK_ICLOUD_CONTAINER = iCloud.com.yourname.keydeck
+KEYDECK_KEYCHAIN_SUFFIX = com.yourname.keydeck

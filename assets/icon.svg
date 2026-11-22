@@ -1,4 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#ea580c"/>
-  <text x="32" y="32" dy="0.35em" text-anchor="middle" font-family="ui-sans-serif, system-ui, -apple-system, sans-serif" font-size="26" font-weight="600" fill="#ffffff">PI</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1C1C1E"/>
+      <stop offset="100%" stop-color="#0E0E10"/>
+    </linearGradient>
+    <linearGradient id="keycap" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2E2E32"/>
+      <stop offset="100%" stop-color="#222226"/>
+    </linearGradient>
+  </defs>
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <!-- Subtle outer keycap silhouette -->
+  <rect x="136" y="156" width="752" height="712" rx="156" fill="#000000" opacity="0.45"/>
+  <rect x="136" y="136" width="752" height="712" rx="156" fill="url(#keycap)" stroke="#FFFFFF" stroke-opacity="0.12" stroke-width="6"/>
+  <!-- Crisp 5-bar waveform / keycap glyph -->
+  <g fill="#FFFFFF">
+    <rect x="292" y="424" width="52" height="136" rx="26" opacity="0.45"/>
+    <rect x="388" y="340" width="52" height="304" rx="26" opacity="0.8"/>
+    <rect x="484" y="268" width="56" height="448" rx="28" fill="#0A84FF"/>
+    <rect x="584" y="340" width="52" height="304" rx="26" opacity="0.8"/>
+    <rect x="680" y="424" width="52" height="136" rx="26" opacity="0.45"/>
+  </g>
 </svg>

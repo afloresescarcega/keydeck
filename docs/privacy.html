@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — KeyDeck</title>
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1d1d1f;
+      --text-secondary: #6e6e73;
+      --border: rgba(0, 0, 0, 0.09);
+      --accent: #007aff;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0b0b0d;
+        --text: #f5f5f7;
+        --text-secondary: #98989f;
+        --border: rgba(255, 255, 255, 0.10);
+        --accent: #0a84ff;
+      }
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      margin: 0;
+      padding: 48px 24px 80px;
+      -webkit-font-smoothing: antialiased;
+    }
+    main { max-width: 680px; margin: 0 auto; }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    h1 { font-size: 32px; letter-spacing: -0.025em; margin: 16px 0 6px; }
+    h2 { font-size: 19px; margin-top: 32px; margin-bottom: 10px; }
+    p, li { color: var(--text-secondary); font-size: 15px; }
+    strong { color: var(--text); }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 13px; color: var(--text); }
+    .meta { font-size: 13.5px; color: var(--text-secondary); padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+  <main>
+    <a href="index.html">← Back to KeyDeck</a>
+    <h1>Privacy Policy</h1>
+    <p class="meta">Effective Date: November 22, 2026 · KeyDeck (MIT Open Source)</p>
+
+    <p>KeyDeck collects <strong>zero</strong> personal data, analytics, crash telemetry, or advertising identifiers. There is no KeyDeck backend server or cloud account.</p>
+
+    <h2>1. Data Stored On Your Device</h2>
+    <ul>
+      <li><strong>API Keys:</strong> Your Google Gemini and/or OpenAI API keys are stored in the iOS Shared Keychain using <code>kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly</code> and are never sent anywhere except directly to their respective provider.</li>
+      <li><strong>Recordings &amp; History Log:</strong> Voice recordings and transcripts are saved locally on your iPhone (encrypted at rest by iOS Data Protection) so you can retry failed network calls or copy past rambles. Swipe to delete any entry and its audio file at any time.</li>
+      <li><strong>Snippets, Settings &amp; Clipboard History:</strong> Stored locally in your private App Group container.</li>
+    </ul>
+
+    <h2>2. Direct Third-Party AI Requests (BYOK)</h2>
+    <p>When you explicitly trigger <strong>Rambler</strong>, <strong>Voice Edit</strong>, or a <strong>Quick Tweak</strong>, your audio or text is sent directly from your iPhone over HTTPS (using ephemeral, zero-cache network sessions) to Google Gemini or OpenAI under your own API key.</p>
+    <p>If <strong>Send Surrounding Field Context</strong> is enabled (toggleable in one tap from the keyboard), nearby text may be included to improve dictation accuracy. KeyDeck <strong>never</strong> captures text from password or secure fields (<code>isSecureTextEntry == true</code>).</p>
+
+    <h2>3. Why "Allow Full Access" Is Required</h2>
+    <p>iOS requires keyboard extensions to request <strong>Allow Full Access</strong> in order to communicate with the KeyDeck companion app via App Groups (for microphone capture, snippets, and clipboard items) and to read your API keys from the Shared Keychain for Quick Tweaks. KeyDeck never logs keystrokes.</p>
+
+    <h2>4. Contact</h2>
+    <p>Questions or security reports: <a href="https://github.com/afloresescarcega/keydeck">github.com/afloresescarcega/keydeck</a>.</p>
+  </main>
+</body>
+</html>

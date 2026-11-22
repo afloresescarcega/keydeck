@@ -1,0 +1,8 @@
+// Fallback build defaults used when Config/Local.xcconfig is not present (e.g., CI builds).
+KEYDECK_DEVELOPMENT_TEAM =
+KEYDECK_BUNDLE_PREFIX = com.example
+KEYDECK_APP_GROUP = group.com.example.keydeck
+KEYDECK_ICLOUD_CONTAINER = iCloud.com.example.keydeck
+KEYDECK_KEYCHAIN_SUFFIX = com.example.keydeck
+
+#include? "Local.xcconfig"

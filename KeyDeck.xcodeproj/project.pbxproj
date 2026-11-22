@@ -1,0 +1,773 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0F28829193133D4E3644AAA4 /* MiniQWERTYView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827BD79F6B19B46DDB8A7DCA /* MiniQWERTYView.swift */; };
+		10E761F2D53DF0AF1F9A6529 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A1C70E12180EB4B10BEED3C6 /* PrivacyInfo.xcprivacy */; };
+		1BF0E35C9730693B13FDADEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 594CDDEDBE308D6E21E3A17B /* Assets.xcassets */; };
+		2B6856ECC4C23BD6647D86AB /* VoiceSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A260E204F49A1A366E1CB64 /* VoiceSessionManager.swift */; };
+		2B86ACEC01E90CA57286D142 /* AlfredPaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610FBB3AA603994E88BBC54D /* AlfredPaletteView.swift */; };
+		31328931A04643206B16C68B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A2A8500A492F66FD3095AED7 /* PrivacyInfo.xcprivacy */; };
+		341F9461025646ACAE593051 /* KeyboardRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C7E4BA21530033F8A46F7E /* KeyboardRootView.swift */; };
+		37E5D8CEE409B03979AF3FE3 /* KeyDeckKeyboard.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E723B80FB011EB38B0F60735 /* KeyDeckKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3B7EE48C3A7AD1351E8765AF /* VoiceHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C81F7F9D07B16A9AF646DA /* VoiceHomeView.swift */; };
+		47177A1DDD5674F8450853AB /* LiveAudioCaptureEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2518BD49F1EDF9ADD396B1 /* LiveAudioCaptureEngine.swift */; };
+		4C74287E2177D68D34875606 /* TranscriptLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74936737F6E643EF4EE151E3 /* TranscriptLogView.swift */; };
+		53A66931E39A63F487F4EF82 /* TweakBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8288B2B2F770B176FE64CF /* TweakBarView.swift */; };
+		6567207C464E6B229A9DCB66 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7554B54131AA39B523922499 /* PrivacyInfo.xcprivacy */; };
+		78FDF8C997CA64352683918C /* VoiceSessionLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F85BAD5B4A415193F26C969 /* VoiceSessionLiveActivity.swift */; };
+		815D4AEDFADBDAF08EF2FF9A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D53D6DA913A3028F398C1ED /* ContentView.swift */; };
+		821AF64B67A7426A49722831 /* KeyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B2C76C1457225677A56E3E /* KeyboardViewModel.swift */; };
+		852BD701785AE4CFFF794160 /* KeyDeckApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC0E25EAF129D8292EC778E1 /* KeyDeckApp.swift */; };
+		9FECCEDBF0C8E3F389CF37EB /* KeyDeckKit in Frameworks */ = {isa = PBXBuildFile; productRef = B5E279D427B0F5EC70BB503D /* KeyDeckKit */; };
+		A050469172E333A21A3F9F55 /* KeyboardDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4254199ACE779E0008910D8 /* KeyboardDesign.swift */; };
+		B67133085C3A9E45F48D27CB /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741FBF5170B573DBC3FD97F5 /* SettingsView.swift */; };
+		B8E8CB430FC257A7E3A9C310 /* KeyDeckWidgets.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3EEF0D2B95CB35FA4D0C8F86 /* KeyDeckWidgets.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		D27810B338BBE21BB6855B54 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 352D04CD099B52DDE0FB460E /* WidgetKit.framework */; };
+		D6FCAE46C9BBF3CBDEDAE1C4 /* KeyDeckKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1EF852F7D6D14902B6ED4334 /* KeyDeckKit */; };
+		D8B265AFE86B279BC1E11961 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3DAE9B4EC92BC43B0D87BF2 /* DashboardView.swift */; };
+		E35857BEC661DE48FA878E54 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5FA173F9B9DD3FED5EAEF40 /* SwiftUI.framework */; };
+		EB26234FA7E078A864E85171 /* KeyDeckKit in Frameworks */ = {isa = PBXBuildFile; productRef = E0C20DE2DEFE8E8642CADC97 /* KeyDeckKit */; };
+		F5D57690129E83CA25919BD3 /* WorkflowsPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC9D44EDE2142CA69C159AB /* WorkflowsPlaceholderView.swift */; };
+		F92BB07FD8C6C9B15659AB7D /* KeyDeckWidgetsBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBFEE25DBEAD6A4C8C9AF7F2 /* KeyDeckWidgetsBundle.swift */; };
+		FA6FB2E1D8C796B58ACE582E /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25869971857DEB6BFE253F04 /* KeyboardViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1A1D1E1D869C3700C26FE036 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DE3A8F8B3A776A8EB221F5C6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 312A3630C8419FFDC2DD3816;
+			remoteInfo = KeyDeckWidgets;
+		};
+		D02B321399A32D98D7ADF3D1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DE3A8F8B3A776A8EB221F5C6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2B1500A0FB35B8E461D4ABEC;
+			remoteInfo = KeyDeckKeyboard;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		C3429F05B3E3226EBEC279FA /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				37E5D8CEE409B03979AF3FE3 /* KeyDeckKeyboard.appex in Embed Foundation Extensions */,
+				B8E8CB430FC257A7E3A9C310 /* KeyDeckWidgets.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0D5F256D6203A20B2F3D9DF9 /* KeyDeckApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = KeyDeckApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		25869971857DEB6BFE253F04 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
+		2CE80BA8528A956D50041A2C /* KeyDeckKeyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KeyDeckKeyboard.entitlements; sourceTree = "<group>"; };
+		2F85BAD5B4A415193F26C969 /* VoiceSessionLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceSessionLiveActivity.swift; sourceTree = "<group>"; };
+		34B2C76C1457225677A56E3E /* KeyboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewModel.swift; sourceTree = "<group>"; };
+		352D04CD099B52DDE0FB460E /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		3903AD84D38B1FB26B638977 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		3D53D6DA913A3028F398C1ED /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3DD6BF5CDF3771D27310D2B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		3EEF0D2B95CB35FA4D0C8F86 /* KeyDeckWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = KeyDeckWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F8288B2B2F770B176FE64CF /* TweakBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweakBarView.swift; sourceTree = "<group>"; };
+		4A260E204F49A1A366E1CB64 /* VoiceSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceSessionManager.swift; sourceTree = "<group>"; };
+		4C2518BD49F1EDF9ADD396B1 /* LiveAudioCaptureEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAudioCaptureEngine.swift; sourceTree = "<group>"; };
+		4CD82EC5FF61DC594F1B0342 /* KeyDeckApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KeyDeckApp.entitlements; sourceTree = "<group>"; };
+		594CDDEDBE308D6E21E3A17B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		610FBB3AA603994E88BBC54D /* AlfredPaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlfredPaletteView.swift; sourceTree = "<group>"; };
+		741FBF5170B573DBC3FD97F5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		7476FE2E4860CC7BFD58B805 /* KeyDeckKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = KeyDeckKit; path = Packages/KeyDeckKit; sourceTree = SOURCE_ROOT; };
+		74936737F6E643EF4EE151E3 /* TranscriptLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptLogView.swift; sourceTree = "<group>"; };
+		7554B54131AA39B523922499 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		80C81F7F9D07B16A9AF646DA /* VoiceHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceHomeView.swift; sourceTree = "<group>"; };
+		827BD79F6B19B46DDB8A7DCA /* MiniQWERTYView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniQWERTYView.swift; sourceTree = "<group>"; };
+		A1C70E12180EB4B10BEED3C6 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		A2A8500A492F66FD3095AED7 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		A5309C1717C7DCF8352EFE16 /* KeyDeckWidgets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KeyDeckWidgets.entitlements; sourceTree = "<group>"; };
+		B3FEBFF1774E48747D408CD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B4254199ACE779E0008910D8 /* KeyboardDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDesign.swift; sourceTree = "<group>"; };
+		BBFEE25DBEAD6A4C8C9AF7F2 /* KeyDeckWidgetsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyDeckWidgetsBundle.swift; sourceTree = "<group>"; };
+		CAC9D44EDE2142CA69C159AB /* WorkflowsPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowsPlaceholderView.swift; sourceTree = "<group>"; };
+		D5FA173F9B9DD3FED5EAEF40 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		D6C7E4BA21530033F8A46F7E /* KeyboardRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardRootView.swift; sourceTree = "<group>"; };
+		E723B80FB011EB38B0F60735 /* KeyDeckKeyboard.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = KeyDeckKeyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB31EAC0A5B8C802738B89D8 /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
+		F3DAE9B4EC92BC43B0D87BF2 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		FC0E25EAF129D8292EC778E1 /* KeyDeckApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyDeckApp.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1585B083F5F62FDF28DB3021 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6FCAE46C9BBF3CBDEDAE1C4 /* KeyDeckKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		67D894A6447F76E2E3BE2B26 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9FECCEDBF0C8E3F389CF37EB /* KeyDeckKit in Frameworks */,
+				D27810B338BBE21BB6855B54 /* WidgetKit.framework in Frameworks */,
+				E35857BEC661DE48FA878E54 /* SwiftUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FC58E3BC7D0B950B898572BE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EB26234FA7E078A864E85171 /* KeyDeckKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		28C48517ADA06E3DD1E75684 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				7476FE2E4860CC7BFD58B805 /* KeyDeckKit */,
+			);
+			path = Packages;
+			sourceTree = "<group>";
+		};
+		2C70DEBEE3E77F3F44F63E68 = {
+			isa = PBXGroup;
+			children = (
+				5FF84E048338BC9ACBFCA078 /* Config */,
+				2FD1576D8547C5A3814EA33C /* KeyDeckApp */,
+				63EADD3F12A03A06905AF90F /* KeyDeckKeyboard */,
+				836C546B181CEAE1378E5E25 /* KeyDeckWidgets */,
+				28C48517ADA06E3DD1E75684 /* Packages */,
+				7E128BFD62FD6B5E7FC8432D /* Frameworks */,
+				2EF9584F434FE9741D8E9890 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		2EF9584F434FE9741D8E9890 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				0D5F256D6203A20B2F3D9DF9 /* KeyDeckApp.app */,
+				E723B80FB011EB38B0F60735 /* KeyDeckKeyboard.appex */,
+				3EEF0D2B95CB35FA4D0C8F86 /* KeyDeckWidgets.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2FD1576D8547C5A3814EA33C /* KeyDeckApp */ = {
+			isa = PBXGroup;
+			children = (
+				32FDF18665E94AFA9CA0DE1F /* Audio */,
+				C78DBB73046E32980E22E333 /* Views */,
+				594CDDEDBE308D6E21E3A17B /* Assets.xcassets */,
+				3903AD84D38B1FB26B638977 /* Info.plist */,
+				4CD82EC5FF61DC594F1B0342 /* KeyDeckApp.entitlements */,
+				FC0E25EAF129D8292EC778E1 /* KeyDeckApp.swift */,
+				A2A8500A492F66FD3095AED7 /* PrivacyInfo.xcprivacy */,
+			);
+			name = KeyDeckApp;
+			path = Sources/KeyDeckApp;
+			sourceTree = "<group>";
+		};
+		32FDF18665E94AFA9CA0DE1F /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				4C2518BD49F1EDF9ADD396B1 /* LiveAudioCaptureEngine.swift */,
+				4A260E204F49A1A366E1CB64 /* VoiceSessionManager.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		58927C926976C2E64F6C4FA7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				610FBB3AA603994E88BBC54D /* AlfredPaletteView.swift */,
+				F3DAE9B4EC92BC43B0D87BF2 /* DashboardView.swift */,
+				B4254199ACE779E0008910D8 /* KeyboardDesign.swift */,
+				D6C7E4BA21530033F8A46F7E /* KeyboardRootView.swift */,
+				827BD79F6B19B46DDB8A7DCA /* MiniQWERTYView.swift */,
+				3F8288B2B2F770B176FE64CF /* TweakBarView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5FF84E048338BC9ACBFCA078 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				EB31EAC0A5B8C802738B89D8 /* Base.xcconfig */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		63EADD3F12A03A06905AF90F /* KeyDeckKeyboard */ = {
+			isa = PBXGroup;
+			children = (
+				58927C926976C2E64F6C4FA7 /* Views */,
+				3DD6BF5CDF3771D27310D2B6 /* Info.plist */,
+				25869971857DEB6BFE253F04 /* KeyboardViewController.swift */,
+				34B2C76C1457225677A56E3E /* KeyboardViewModel.swift */,
+				2CE80BA8528A956D50041A2C /* KeyDeckKeyboard.entitlements */,
+				7554B54131AA39B523922499 /* PrivacyInfo.xcprivacy */,
+			);
+			name = KeyDeckKeyboard;
+			path = Sources/KeyDeckKeyboard;
+			sourceTree = "<group>";
+		};
+		7E128BFD62FD6B5E7FC8432D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D5FA173F9B9DD3FED5EAEF40 /* SwiftUI.framework */,
+				352D04CD099B52DDE0FB460E /* WidgetKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		836C546B181CEAE1378E5E25 /* KeyDeckWidgets */ = {
+			isa = PBXGroup;
+			children = (
+				B3FEBFF1774E48747D408CD5 /* Info.plist */,
+				A5309C1717C7DCF8352EFE16 /* KeyDeckWidgets.entitlements */,
+				BBFEE25DBEAD6A4C8C9AF7F2 /* KeyDeckWidgetsBundle.swift */,
+				A1C70E12180EB4B10BEED3C6 /* PrivacyInfo.xcprivacy */,
+				2F85BAD5B4A415193F26C969 /* VoiceSessionLiveActivity.swift */,
+			);
+			name = KeyDeckWidgets;
+			path = Sources/KeyDeckWidgets;
+			sourceTree = "<group>";
+		};
+		C78DBB73046E32980E22E333 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3D53D6DA913A3028F398C1ED /* ContentView.swift */,
+				741FBF5170B573DBC3FD97F5 /* SettingsView.swift */,
+				74936737F6E643EF4EE151E3 /* TranscriptLogView.swift */,
+				80C81F7F9D07B16A9AF646DA /* VoiceHomeView.swift */,
+				CAC9D44EDE2142CA69C159AB /* WorkflowsPlaceholderView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2B1500A0FB35B8E461D4ABEC /* KeyDeckKeyboard */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 36428B9944ECA4F4109C6D13 /* Build configuration list for PBXNativeTarget "KeyDeckKeyboard" */;
+			buildPhases = (
+				393E5B459B25644889511010 /* Sources */,
+				639DCE6ED98E6760ED1DED8B /* Resources */,
+				1585B083F5F62FDF28DB3021 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KeyDeckKeyboard;
+			packageProductDependencies = (
+				1EF852F7D6D14902B6ED4334 /* KeyDeckKit */,
+			);
+			productName = KeyDeckKeyboard;
+			productReference = E723B80FB011EB38B0F60735 /* KeyDeckKeyboard.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		312A3630C8419FFDC2DD3816 /* KeyDeckWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 736CCFE66CB3DF83AC97DACD /* Build configuration list for PBXNativeTarget "KeyDeckWidgets" */;
+			buildPhases = (
+				C3AA199667BCAF7A2848F67D /* Sources */,
+				F132230DE43E6EE12693184D /* Resources */,
+				67D894A6447F76E2E3BE2B26 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KeyDeckWidgets;
+			packageProductDependencies = (
+				B5E279D427B0F5EC70BB503D /* KeyDeckKit */,
+			);
+			productName = KeyDeckWidgets;
+			productReference = 3EEF0D2B95CB35FA4D0C8F86 /* KeyDeckWidgets.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		E05222EE512955165393D821 /* KeyDeckApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22764C008FA97D29ABABF5A8 /* Build configuration list for PBXNativeTarget "KeyDeckApp" */;
+			buildPhases = (
+				93C18C10CB3E23BE91FD0BF2 /* Sources */,
+				C07E73E62A834701A2E27E7D /* Resources */,
+				FC58E3BC7D0B950B898572BE /* Frameworks */,
+				C3429F05B3E3226EBEC279FA /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				086CBBD82B0BE5B1A0F4EADF /* PBXTargetDependency */,
+				36275E8C3654B659744C6EEA /* PBXTargetDependency */,
+			);
+			name = KeyDeckApp;
+			packageProductDependencies = (
+				E0C20DE2DEFE8E8642CADC97 /* KeyDeckKit */,
+			);
+			productName = KeyDeckApp;
+			productReference = 0D5F256D6203A20B2F3D9DF9 /* KeyDeckApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DE3A8F8B3A776A8EB221F5C6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					2B1500A0FB35B8E461D4ABEC = {
+						DevelopmentTeam = "$(KEYDECK_DEVELOPMENT_TEAM)";
+						ProvisioningStyle = Automatic;
+					};
+					312A3630C8419FFDC2DD3816 = {
+						DevelopmentTeam = "$(KEYDECK_DEVELOPMENT_TEAM)";
+						ProvisioningStyle = Automatic;
+					};
+					E05222EE512955165393D821 = {
+						DevelopmentTeam = "$(KEYDECK_DEVELOPMENT_TEAM)";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 4E89CF9A8A17EDB1607661CD /* Build configuration list for PBXProject "KeyDeck" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 2C70DEBEE3E77F3F44F63E68;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				61A1825F525FDEEECA24B702 /* XCLocalSwiftPackageReference "Packages/KeyDeckKit" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 2EF9584F434FE9741D8E9890 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E05222EE512955165393D821 /* KeyDeckApp */,
+				2B1500A0FB35B8E461D4ABEC /* KeyDeckKeyboard */,
+				312A3630C8419FFDC2DD3816 /* KeyDeckWidgets */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		639DCE6ED98E6760ED1DED8B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6567207C464E6B229A9DCB66 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C07E73E62A834701A2E27E7D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1BF0E35C9730693B13FDADEB /* Assets.xcassets in Resources */,
+				31328931A04643206B16C68B /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F132230DE43E6EE12693184D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				10E761F2D53DF0AF1F9A6529 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		393E5B459B25644889511010 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B86ACEC01E90CA57286D142 /* AlfredPaletteView.swift in Sources */,
+				D8B265AFE86B279BC1E11961 /* DashboardView.swift in Sources */,
+				A050469172E333A21A3F9F55 /* KeyboardDesign.swift in Sources */,
+				341F9461025646ACAE593051 /* KeyboardRootView.swift in Sources */,
+				FA6FB2E1D8C796B58ACE582E /* KeyboardViewController.swift in Sources */,
+				821AF64B67A7426A49722831 /* KeyboardViewModel.swift in Sources */,
+				0F28829193133D4E3644AAA4 /* MiniQWERTYView.swift in Sources */,
+				53A66931E39A63F487F4EF82 /* TweakBarView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93C18C10CB3E23BE91FD0BF2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				815D4AEDFADBDAF08EF2FF9A /* ContentView.swift in Sources */,
+				852BD701785AE4CFFF794160 /* KeyDeckApp.swift in Sources */,
+				47177A1DDD5674F8450853AB /* LiveAudioCaptureEngine.swift in Sources */,
+				B67133085C3A9E45F48D27CB /* SettingsView.swift in Sources */,
+				4C74287E2177D68D34875606 /* TranscriptLogView.swift in Sources */,
+				3B7EE48C3A7AD1351E8765AF /* VoiceHomeView.swift in Sources */,
+				2B6856ECC4C23BD6647D86AB /* VoiceSessionManager.swift in Sources */,
+				F5D57690129E83CA25919BD3 /* WorkflowsPlaceholderView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C3AA199667BCAF7A2848F67D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F92BB07FD8C6C9B15659AB7D /* KeyDeckWidgetsBundle.swift in Sources */,
+				78FDF8C997CA64352683918C /* VoiceSessionLiveActivity.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		086CBBD82B0BE5B1A0F4EADF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2B1500A0FB35B8E461D4ABEC /* KeyDeckKeyboard */;
+			targetProxy = D02B321399A32D98D7ADF3D1 /* PBXContainerItemProxy */;
+		};
+		36275E8C3654B659744C6EEA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 312A3630C8419FFDC2DD3816 /* KeyDeckWidgets */;
+			targetProxy = 1A1D1E1D869C3700C26FE036 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		07AFA11F1652555DF4ACB721 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EB31EAC0A5B8C802738B89D8 /* Base.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "$(KEYDECK_DEVELOPMENT_TEAM)";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1006E617721198E40B1FD3D1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Sources/KeyDeckKeyboard/KeyDeckKeyboard.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = Sources/KeyDeckKeyboard/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(KEYDECK_BUNDLE_PREFIX).keydeck.keyboard";
+				PRODUCT_NAME = KeyDeckKeyboard;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		69B1CE790F24A7DE8ECE8407 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Sources/KeyDeckApp/KeyDeckApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = Sources/KeyDeckApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(KEYDECK_BUNDLE_PREFIX).keydeck";
+				PRODUCT_NAME = KeyDeck;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		6DF28479BB97A2A6775F9509 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Sources/KeyDeckKeyboard/KeyDeckKeyboard.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = Sources/KeyDeckKeyboard/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(KEYDECK_BUNDLE_PREFIX).keydeck.keyboard";
+				PRODUCT_NAME = KeyDeckKeyboard;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7657D6F4A0BFFF9DD1A76A01 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EB31EAC0A5B8C802738B89D8 /* Base.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "$(KEYDECK_DEVELOPMENT_TEAM)";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		7C958DC5CFEBE81986D0E080 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Sources/KeyDeckApp/KeyDeckApp.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = Sources/KeyDeckApp/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(KEYDECK_BUNDLE_PREFIX).keydeck";
+				PRODUCT_NAME = KeyDeck;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B5A20F56EC73BD6079068B22 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Sources/KeyDeckWidgets/KeyDeckWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = Sources/KeyDeckWidgets/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(KEYDECK_BUNDLE_PREFIX).keydeck.widgets";
+				PRODUCT_NAME = KeyDeckWidgets;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		D54B7B10D77199B2E29CF61A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Sources/KeyDeckWidgets/KeyDeckWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = Sources/KeyDeckWidgets/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "$(KEYDECK_BUNDLE_PREFIX).keydeck.widgets";
+				PRODUCT_NAME = KeyDeckWidgets;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		22764C008FA97D29ABABF5A8 /* Build configuration list for PBXNativeTarget "KeyDeckApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				69B1CE790F24A7DE8ECE8407 /* Debug */,
+				7C958DC5CFEBE81986D0E080 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		36428B9944ECA4F4109C6D13 /* Build configuration list for PBXNativeTarget "KeyDeckKeyboard" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6DF28479BB97A2A6775F9509 /* Debug */,
+				1006E617721198E40B1FD3D1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		4E89CF9A8A17EDB1607661CD /* Build configuration list for PBXProject "KeyDeck" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				07AFA11F1652555DF4ACB721 /* Debug */,
+				7657D6F4A0BFFF9DD1A76A01 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		736CCFE66CB3DF83AC97DACD /* Build configuration list for PBXNativeTarget "KeyDeckWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D54B7B10D77199B2E29CF61A /* Debug */,
+				B5A20F56EC73BD6079068B22 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		61A1825F525FDEEECA24B702 /* XCLocalSwiftPackageReference "Packages/KeyDeckKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/KeyDeckKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1EF852F7D6D14902B6ED4334 /* KeyDeckKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KeyDeckKit;
+		};
+		B5E279D427B0F5EC70BB503D /* KeyDeckKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KeyDeckKit;
+		};
+		E0C20DE2DEFE8E8642CADC97 /* KeyDeckKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = KeyDeckKit;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = DE3A8F8B3A776A8EB221F5C6 /* Project object */;
+}
