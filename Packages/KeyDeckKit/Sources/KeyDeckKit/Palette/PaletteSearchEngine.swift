@@ -1,6 +1,6 @@
 import Foundation
 
-public enum AlfredFilter: String, CaseIterable, Sendable, Identifiable {
+public enum PaletteFilter: String, CaseIterable, Sendable, Identifiable {
     case all
     case snippets
     case clipboard
@@ -16,7 +16,7 @@ public enum AlfredFilter: String, CaseIterable, Sendable, Identifiable {
     }
 }
 
-public enum AlfredResultAction: Equatable, Sendable {
+public enum PaletteResultAction: Equatable, Sendable {
     case insertText(String)
     case runWorkflow(workflow: KeyDeckWorkflow, inlineArgument: String?)
     case promptForArgument(workflow: KeyDeckWorkflow, prompt: String, placeholder: String)
@@ -24,14 +24,14 @@ public enum AlfredResultAction: Equatable, Sendable {
     case killMic
 }
 
-public struct AlfredSearchResult: Equatable, Identifiable, Sendable {
+public struct PaletteSearchResult: Equatable, Identifiable, Sendable {
     public var id: String
     public var title: String
     public var subtitle: String
     public var badge: String?
     public var systemImage: String
     public var score: Int
-    public var action: AlfredResultAction
+    public var action: PaletteResultAction
     public var clipboardItemID: UUID?
     public var isPinned: Bool
 
@@ -42,7 +42,7 @@ public struct AlfredSearchResult: Equatable, Identifiable, Sendable {
         badge: String? = nil,
         systemImage: String,
         score: Int,
-        action: AlfredResultAction,
+        action: PaletteResultAction,
         clipboardItemID: UUID? = nil,
         isPinned: Bool = false
     ) {
@@ -58,25 +58,25 @@ public struct AlfredSearchResult: Equatable, Identifiable, Sendable {
     }
 }
 
-public enum AlfredSearchEngine {
+public enum PaletteSearchEngine {
 
     public static func search(
         query rawQuery: String,
-        filter: AlfredFilter = .all,
+        filter: PaletteFilter = .all,
         workflows: [KeyDeckWorkflow],
         clipboardItems: [ClipboardItem],
         snippetContext: SnippetContext,
         isMicLive: Bool,
         now: Date = Date()
-    ) -> [AlfredSearchResult] {
+    ) -> [PaletteSearchResult] {
         let query = rawQuery.trimmingCharacters(in: .whitespacesAndNewlines)
         let lower = query.lowercased()
-        var results: [AlfredSearchResult] = []
+        var results: [PaletteSearchResult] = []
 
         // 1. Live Inline Utilities (Calculator, Conversions, Timezones, Generators)
         if filter == .all, let util = InlineUtilityEngine.evaluate(query, now: now) {
             results.append(
-                AlfredSearchResult(
+                PaletteSearchResult(
                     id: "util-\(util.insertText)",
                     title: util.title,
                     subtitle: util.subtitle,
@@ -122,7 +122,7 @@ public enum AlfredSearchEngine {
 
                 if let req = argRequirement, (resolvedArg == nil || resolvedArg?.isEmpty == true) {
                     results.append(
-                        AlfredSearchResult(
+                        PaletteSearchResult(
                             id: "wf-\(workflow.id.uuidString)",
                             title: workflow.name,
                             subtitle: "Type: \(workflow.keyword) <\(req.placeholder)>",
@@ -137,7 +137,7 @@ public enum AlfredSearchEngine {
                     let preview = SnippetEngine.expand(workflow: workflow, context: previewContext)?
                         .replacingOccurrences(of: "\n", with: " ") ?? workflow.summary
                     results.append(
-                        AlfredSearchResult(
+                        PaletteSearchResult(
                             id: "wf-\(workflow.id.uuidString)",
                             title: resolvedArg != nil ? "\(workflow.name): \(resolvedArg!)" : workflow.name,
                             subtitle: preview,
@@ -165,7 +165,7 @@ public enum AlfredSearchEngine {
                     continue
                 }
                 results.append(
-                    AlfredSearchResult(
+                    PaletteSearchResult(
                         id: "clip-\(item.id.uuidString)",
                         title: item.displayTitle,
                         subtitle: item.isPinned ? "Pinned clip" : "Clipboard",
@@ -184,7 +184,7 @@ public enum AlfredSearchEngine {
         if filter == .all && !query.isEmpty {
             if let s = fuzzyScore(query: lower, candidates: ["rambler", "dictate", "voice"]) {
                 results.append(
-                    AlfredSearchResult(
+                    PaletteSearchResult(
                         id: "cmd-rambler",
                         title: "Start Rambler",
                         subtitle: "Voice ramble → clean text",
@@ -197,7 +197,7 @@ public enum AlfredSearchEngine {
             }
             if let s = fuzzyScore(query: lower, candidates: ["voice edit", "rewrite", "edit"]) {
                 results.append(
-                    AlfredSearchResult(
+                    PaletteSearchResult(
                         id: "cmd-voice-edit",
                         title: "Start Voice Edit",
                         subtitle: "Speak an instruction to transform text",
@@ -210,7 +210,7 @@ public enum AlfredSearchEngine {
             }
             if isMicLive, let s = fuzzyScore(query: lower, candidates: ["kill mic", "stop mic", "mute", "disarm"]) {
                 results.append(
-                    AlfredSearchResult(
+                    PaletteSearchResult(
                         id: "cmd-kill-mic",
                         title: "Kill Mic",
                         subtitle: "Shut off background microphone immediately",

@@ -21,7 +21,7 @@ struct ContentView: View {
 
             WorkflowsPlaceholderView()
                 .tabItem {
-                    Label("Alfred", systemImage: "command")
+                    Label("Palette", systemImage: "command")
                 }
                 .tag(AppTab.workflows)
 

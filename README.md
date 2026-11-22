@@ -6,7 +6,7 @@
 
 <p align="center">
   <strong>An open-source, bring-your-own-key iOS utility keyboard.</strong><br>
-  Rambler voice dictation, Voice Edit, and an Alfred-style command palette — with zero backend.
+  Rambler voice dictation, Voice Edit, and a command palette — with zero backend.
 </p>
 
 <p align="center">
@@ -27,7 +27,7 @@ Apple's native QWERTY keyboard already nailed swipe typing and autocorrect, so K
 - **Voice Edit** — Select text (or use what's in the field) and speak an instruction (*"make this shorter"*, *"casual tone"*, *"translate to Spanish"*).
 - **One-Tap Undo & Quick Tweaks** — Immediately refine inserted text (`Undo`, `Shorter`, `Bullets`, `Casual`, `Work`, `Raw`).
 - **Explicit `Kill Mic` Control** — Persistent background audio session for instant in-place recording with a Dynamic Island Live Activity, plus one-tap **`Kill Mic`** from the keyboard, Dynamic Island, companion app, idle auto-kill, or auto-kill after every dictation.
-- **Alfred Command Palette + Compact Mini-QWERTY** — Tap the search bar to run:
+- **Command Palette + Compact Mini-QWERTY** — Tap the search bar to run:
   - **Inline Math Calculator** (`18% of 240`, `(12 + 8) * 3`, `sqrt(144)`)
   - **Unit & Timezone Conversions** (`72f to c`, `10 km to mi`, `3pm est to cst`, `now tokyo`)
   - **Generators & Symbols** (`uuid`, `ts`, `iso`, `shrug`, `arrow`, `em`, `cmd`)
@@ -70,9 +70,9 @@ cp Config/Local.xcconfig.example Config/Local.xcconfig
 
 | Path | Description |
 | --- | --- |
-| `Packages/KeyDeckKit/` | Shared Swift 6 package: AI clients, `PromptBuilder`, `InlineUtilityEngine`, `SnippetEngine`, `AlfredSearchEngine`, `SharedKeychain`, `SharedStore`, Darwin IPC, and Swift Testing unit tests. |
-| `Sources/KeyDeckApp/` | Native `.insetGrouped` SwiftUI companion app: persistent `AVAudioEngine` capture, Live Activity coordinator, History fallback log, Alfred Snippet & Clipboard manager, and Settings. |
-| `Sources/KeyDeckKeyboard/` | Lightweight `UIInputViewController` extension: tactile `KeycapButtonStyle` dashboard, live reactive waveform, Undo/Tweak bar, expandable Alfred palette, and compact mini-QWERTY. |
+| `Packages/KeyDeckKit/` | Shared Swift 6 package: AI clients, `PromptBuilder`, `InlineUtilityEngine`, `SnippetEngine`, `PaletteSearchEngine`, `SharedKeychain`, `SharedStore`, Darwin IPC, and Swift Testing unit tests. |
+| `Sources/KeyDeckApp/` | Native `.insetGrouped` SwiftUI companion app: persistent `AVAudioEngine` capture, Live Activity coordinator, History fallback log, Snippet & Clipboard manager, and Settings. |
+| `Sources/KeyDeckKeyboard/` | Lightweight `UIInputViewController` extension: tactile `KeycapButtonStyle` dashboard, live reactive waveform, Undo/Tweak bar, expandable command palette, and compact mini-QWERTY. |
 | `Sources/KeyDeckWidgets/` | WidgetKit extension for Dynamic Island & Lock Screen Live Activities with direct `Kill Mic` action. |
 | `Config/` | `Base.xcconfig` + `Local.xcconfig.example` (keep your real `Local.xcconfig` untracked). |
 | `docs/` | GitHub Pages landing page and privacy policy. |

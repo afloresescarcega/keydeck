@@ -1,7 +1,7 @@
 import KeyDeckKit
 import SwiftUI
 
-struct AlfredPaletteView: View {
+struct CommandPaletteView: View {
     @Bindable var viewModel: KeyboardViewModel
 
     var body: some View {
@@ -82,7 +82,7 @@ struct AlfredPaletteView: View {
 
     private var filterMenuButton: some View {
         HStack(spacing: 4) {
-            ForEach(AlfredFilter.allCases) { filter in
+            ForEach(PaletteFilter.allCases) { filter in
                 let selected = viewModel.paletteFilter == filter
                 Button {
                     viewModel.setPaletteFilter(filter)
@@ -105,7 +105,7 @@ struct AlfredPaletteView: View {
     // MARK: - Live Ranked Results
 
     private var resultsArea: some View {
-        let results = viewModel.alfredResults
+        let results = viewModel.paletteResults
         return ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(spacing: 4) {
                 if viewModel.paletteFilter == .clipboard {
@@ -146,10 +146,10 @@ struct AlfredPaletteView: View {
         .frame(height: 112)
     }
 
-    private func resultRow(_ item: AlfredSearchResult, isTop: Bool) -> some View {
+    private func resultRow(_ item: PaletteSearchResult, isTop: Bool) -> some View {
         HStack(spacing: 8) {
             Button {
-                viewModel.executeAlfredResult(item)
+                viewModel.executePaletteResult(item)
             } label: {
                 HStack(spacing: 8) {
                     Image(systemName: item.systemImage)
@@ -206,7 +206,7 @@ struct AlfredPaletteView: View {
     }
 
     private var returnButtonLabel: String {
-        guard let first = viewModel.alfredResults.first else { return "Insert" }
+        guard let first = viewModel.paletteResults.first else { return "Insert" }
         switch first.action {
         case .promptForArgument: return "Next"
         case .triggerVoice: return "Speak"

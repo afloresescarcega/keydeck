@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Compact built-in tactile mini-QWERTY dedicated purely to Alfred palette queries,
+/// Compact built-in tactile mini-QWERTY dedicated purely to command palette queries,
 /// math expressions, unit/timezone conversions, and snippet fill-in arguments.
 struct MiniQWERTYView: View {
     let onCharacter: (String) -> Void
