@@ -23,10 +23,10 @@ final class KeyboardViewModel {
     private(set) var isTweaking: Bool = false
     private(set) var statusMessage: String?
 
-    // Phase 2: Alfred Command Palette, Snippets & Clipboard
+    // Phase 2: Command Palette, Snippets & Clipboard
     private(set) var isPaletteOpen: Bool = false
     var paletteQuery: String = ""
-    var paletteFilter: AlfredFilter = .all
+    var paletteFilter: PaletteFilter = .all
     private(set) var workflows: [KeyDeckWorkflow] = []
     private(set) var clipboardItems: [ClipboardItem] = []
 
@@ -87,14 +87,14 @@ final class KeyboardViewModel {
         workflows.filter(\.isPinned)
     }
 
-    var alfredResults: [AlfredSearchResult] {
+    var paletteResults: [PaletteSearchResult] {
         let context = readContext()
         let latestClip = clipboardItems.first?.text ?? ""
         let snippetCtx = SnippetContext(
             clipboard: latestClip,
             selection: context.selectedText
         )
-        return AlfredSearchEngine.search(
+        return PaletteSearchEngine.search(
             query: paletteQuery,
             filter: paletteFilter,
             workflows: workflows,
@@ -124,9 +124,9 @@ final class KeyboardViewModel {
         hasSelectedText = readContext().hasSelection
     }
 
-    // MARK: - Alfred Palette & Mini-QWERTY
+    // MARK: - Command Palette & Mini-QWERTY
 
-    func openPalette(initialQuery: String = "", filter: AlfredFilter = .all) {
+    func openPalette(initialQuery: String = "", filter: PaletteFilter = .all) {
         triggerHaptic(.light)
         workflows = store.loadWorkflows()
         clipboardItems = store.loadClipboardItems()
@@ -144,7 +144,7 @@ final class KeyboardViewModel {
         onHeightModeChanged(false)
     }
 
-    func setPaletteFilter(_ filter: AlfredFilter) {
+    func setPaletteFilter(_ filter: PaletteFilter) {
         triggerHaptic(.light)
         paletteFilter = filter
     }
@@ -167,15 +167,15 @@ final class KeyboardViewModel {
     }
 
     func paletteExecuteTopResult() {
-        if let first = alfredResults.first {
-            executeAlfredResult(first)
+        if let first = paletteResults.first {
+            executePaletteResult(first)
         } else if !paletteQuery.isEmpty {
             insertTextAction(paletteQuery)
             closePalette()
         }
     }
 
-    func executeAlfredResult(_ result: AlfredSearchResult) {
+    func executePaletteResult(_ result: PaletteSearchResult) {
         switch result.action {
         case .insertText(let text):
             triggerHaptic(.success)

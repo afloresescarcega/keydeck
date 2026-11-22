@@ -37,7 +37,7 @@ struct WorkflowsPlaceholderView: View {
                 }
             }
             .background(Color(.systemGroupedBackground))
-            .navigationTitle("Alfred")
+            .navigationTitle("Palette")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
@@ -136,7 +136,7 @@ struct WorkflowsPlaceholderView: View {
             } header: {
                 Text("Dynamic Snippets")
             } footer: {
-                Text("Pinned snippets appear directly on the keyboard dashboard. Type any keyword in the Alfred palette (e.g. \"intro Alex\") or try inline utilities like \"18% of 240\", \"72f to c\", \"3pm est to cst\", or \"uuid\".")
+                Text("Pinned snippets appear directly on the keyboard dashboard. Type any keyword in the command palette (e.g. \"intro Alex\") or try inline utilities like \"18% of 240\", \"72f to c\", \"3pm est to cst\", or \"uuid\".")
             }
         }
         .listStyle(.insetGrouped)

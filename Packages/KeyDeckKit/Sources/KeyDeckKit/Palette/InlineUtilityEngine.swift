@@ -14,7 +14,7 @@ public struct InlineUtilityResult: Equatable, Sendable {
     }
 }
 
-/// Pure Swift, crash-safe inline utilities for the Alfred Command Palette:
+/// Pure Swift, crash-safe inline utilities for the Command Palette:
 /// math calculator, percentage math, unit conversions, timezone lookup, generators, and symbols.
 public enum InlineUtilityEngine {
 

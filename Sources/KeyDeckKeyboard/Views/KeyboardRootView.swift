@@ -7,7 +7,7 @@ struct KeyboardRootView: View {
     var body: some View {
         Group {
             if viewModel.isPaletteOpen {
-                AlfredPaletteView(viewModel: viewModel)
+                CommandPaletteView(viewModel: viewModel)
             } else {
                 DashboardView(viewModel: viewModel)
             }

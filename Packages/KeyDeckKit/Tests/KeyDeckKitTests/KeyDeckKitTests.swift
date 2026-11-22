@@ -147,12 +147,12 @@ struct KeyDeckKitTests {
         #expect(expanded.contains("2026-11-22"))
     }
 
-    @Test("AlfredSearchEngine ranks inline math and keyword+argument snippets first")
-    func alfredSearchRanking() {
+    @Test("PaletteSearchEngine ranks inline math and keyword+argument snippets first")
+    func paletteSearchRanking() {
         let workflows = KeyDeckWorkflow.starterPack
         let clips = [ClipboardItem(text: "alex@example.com", label: "Work Email", isPinned: true)]
 
-        let mathResults = AlfredSearchEngine.search(
+        let mathResults = PaletteSearchEngine.search(
             query: "18% of 240",
             workflows: workflows,
             clipboardItems: clips,
@@ -161,7 +161,7 @@ struct KeyDeckKitTests {
         )
         #expect(mathResults.first?.insertTextIfStatic == "43.2")
 
-        let argResults = AlfredSearchEngine.search(
+        let argResults = PaletteSearchEngine.search(
             query: "intro Bob",
             workflows: workflows,
             clipboardItems: clips,
@@ -175,7 +175,7 @@ struct KeyDeckKitTests {
         #expect(wf.keyword == "intro")
         #expect(arg == "Bob")
 
-        let clipResults = AlfredSearchEngine.search(
+        let clipResults = PaletteSearchEngine.search(
             query: "email",
             workflows: workflows,
             clipboardItems: clips,
@@ -195,7 +195,7 @@ struct KeyDeckKitTests {
     }
 }
 
-private extension AlfredSearchResult {
+private extension PaletteSearchResult {
     var insertTextIfStatic: String? {
         if case let .insertText(text) = action { return text }
         return nil

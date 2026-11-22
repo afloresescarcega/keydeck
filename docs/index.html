@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KeyDeck — Open-Source BYOK iOS Utility Keyboard</title>
-  <meta name="description" content="Rambler voice dictation, Voice Edit, and an Alfred-style command palette for iOS. Bring your own Gemini or OpenAI API key — zero backend, MIT licensed.">
+  <meta name="description" content="Rambler voice dictation, Voice Edit, and a command palette for iOS. Bring your own Gemini or OpenAI API key — zero backend, MIT licensed.">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
   <style>
     :root {
@@ -611,7 +611,7 @@
           <span class="dot-live"></span>
           Open Source · iOS 17+ · MIT License
         </div>
-        <h1>Better dictation &amp; an Alfred palette on iPhone.</h1>
+        <h1>Better dictation &amp; a command palette on iPhone.</h1>
         <p class="lead">
           Keep Apple's native keyboard for everyday typing. Switch to KeyDeck via the globe key for Rambler voice dictation, Voice Edit, inline math, dynamic snippets, and clipboard clips — powered by your own Gemini or OpenAI key.
         </p>
@@ -640,7 +640,7 @@
 
           <div class="chat-area">
             <span class="chat-label">Try the live demo below</span>
-            <div class="composer empty" id="demoComposer">Tap Rambler or open the Alfred bar…</div>
+            <div class="composer empty" id="demoComposer">Tap Rambler or open the search bar…</div>
           </div>
 
           <!-- Dashboard Mode -->
@@ -686,7 +686,7 @@
             </div>
           </div>
 
-          <!-- Alfred Palette Mode -->
+          <!-- Command Palette Mode -->
           <div class="kbd" id="paletteView" style="display:none;">
             <div class="kbd-row">
               <button class="keycap sec util-key" id="closePaletteBtn" type="button" style="width:34px;height:34px;">←</button>
@@ -723,7 +723,7 @@
         </div>
 
         <div class="feature">
-          <h3>Alfred Palette + Mini-QWERTY</h3>
+          <h3>Command Palette + Mini-QWERTY</h3>
           <p>
             Tap the search bar to open a live fuzzy-search palette with a compact built-in mini-QWERTY. Evaluate math, convert units &amp; timezones, generate UUIDs/timestamps, search clipboard clips, or expand parameterized snippets.
           </p>
@@ -810,7 +810,7 @@ xcodegen generate &amp;&amp; open KeyDeck.xcodeproj</code></pre>
 
     function renderComposer() {
       if (!demoText) {
-        composer.textContent = 'Tap Rambler or open the Alfred bar…';
+        composer.textContent = 'Tap Rambler or open the search bar…';
         composer.classList.add('empty');
       } else {
         composer.textContent = demoText;

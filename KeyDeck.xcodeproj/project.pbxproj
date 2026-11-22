@@ -11,7 +11,7 @@
 		10E761F2D53DF0AF1F9A6529 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A1C70E12180EB4B10BEED3C6 /* PrivacyInfo.xcprivacy */; };
 		1BF0E35C9730693B13FDADEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 594CDDEDBE308D6E21E3A17B /* Assets.xcassets */; };
 		2B6856ECC4C23BD6647D86AB /* VoiceSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A260E204F49A1A366E1CB64 /* VoiceSessionManager.swift */; };
-		2B86ACEC01E90CA57286D142 /* AlfredPaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610FBB3AA603994E88BBC54D /* AlfredPaletteView.swift */; };
+		2B86ACEC01E90CA57286D142 /* CommandPaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610FBB3AA603994E88BBC54D /* CommandPaletteView.swift */; };
 		31328931A04643206B16C68B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A2A8500A492F66FD3095AED7 /* PrivacyInfo.xcprivacy */; };
 		341F9461025646ACAE593051 /* KeyboardRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C7E4BA21530033F8A46F7E /* KeyboardRootView.swift */; };
 		37E5D8CEE409B03979AF3FE3 /* KeyDeckKeyboard.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E723B80FB011EB38B0F60735 /* KeyDeckKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -86,7 +86,7 @@
 		4C2518BD49F1EDF9ADD396B1 /* LiveAudioCaptureEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAudioCaptureEngine.swift; sourceTree = "<group>"; };
 		4CD82EC5FF61DC594F1B0342 /* KeyDeckApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KeyDeckApp.entitlements; sourceTree = "<group>"; };
 		594CDDEDBE308D6E21E3A17B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		610FBB3AA603994E88BBC54D /* AlfredPaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlfredPaletteView.swift; sourceTree = "<group>"; };
+		610FBB3AA603994E88BBC54D /* CommandPaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandPaletteView.swift; sourceTree = "<group>"; };
 		741FBF5170B573DBC3FD97F5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		7476FE2E4860CC7BFD58B805 /* KeyDeckKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = KeyDeckKit; path = Packages/KeyDeckKit; sourceTree = SOURCE_ROOT; };
 		74936737F6E643EF4EE151E3 /* TranscriptLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptLogView.swift; sourceTree = "<group>"; };
@@ -196,7 +196,7 @@
 		58927C926976C2E64F6C4FA7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				610FBB3AA603994E88BBC54D /* AlfredPaletteView.swift */,
+				610FBB3AA603994E88BBC54D /* CommandPaletteView.swift */,
 				F3DAE9B4EC92BC43B0D87BF2 /* DashboardView.swift */,
 				B4254199ACE779E0008910D8 /* KeyboardDesign.swift */,
 				D6C7E4BA21530033F8A46F7E /* KeyboardRootView.swift */,
@@ -408,7 +408,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B86ACEC01E90CA57286D142 /* AlfredPaletteView.swift in Sources */,
+				2B86ACEC01E90CA57286D142 /* CommandPaletteView.swift in Sources */,
 				D8B265AFE86B279BC1E11961 /* DashboardView.swift in Sources */,
 				A050469172E333A21A3F9F55 /* KeyboardDesign.swift in Sources */,
 				341F9461025646ACAE593051 /* KeyboardRootView.swift in Sources */,

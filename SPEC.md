@@ -12,7 +12,7 @@
 
 ## Product Vision
 
-KeyDeck is a **dedicated utility keyboard** for iOS — switch to it via the globe key whenever you want voice-powered Rambler dictation, Voice Edit, or Alfred-style commands/snippets/workflows, while keeping Apple's native QWERTY keyboard for everyday typing.
+KeyDeck is a **dedicated utility keyboard** for iOS — switch to it via the globe key whenever you want voice-powered Rambler dictation, Voice Edit, or commands/snippets/workflows, while keeping Apple's native QWERTY keyboard for everyday typing.
 
 ### Core Pillars
 
@@ -32,10 +32,10 @@ KeyDeck is a **dedicated utility keyboard** for iOS — switch to it via the glo
    - Optional **OpenAI two-pass pipeline** (`gpt-4o-transcribe` / `whisper-1` → OpenAI or Gemini LLM).
    - Per-workflow provider and model overrides.
 
-3. **Alfred-Style Command Palette & Composable Workflows**
+3. **Command Palette & Composable Workflows**
    - **Two-Mode Keyboard UI**:
-     - *Dashboard (default)*: Rambler & Voice Edit triggers, pinned actions/snippets/clips, top Alfred search bar, and essential quick-edit bar (Globe, Backspace, Return, Undo).
-     - *Expandable Alfred Search Palette*: Live fuzzy search + inline utility previews (calculator, conversions, UUID/timestamps, symbols) above a compact built-in mini-QWERTY for typing short queries, math, or arguments.
+     - *Dashboard (default)*: Rambler & Voice Edit triggers, pinned actions/snippets/clips, top search bar, and essential quick-edit bar (Globe, Backspace, Return, Undo).
+     - *Expandable Search Palette*: Live fuzzy search + inline utility previews (calculator, conversions, UUID/timestamps, symbols) above a compact built-in mini-QWERTY for typing short queries, math, or arguments.
    - **5 Core Capabilities**:
      1. Dynamic Snippets & Templates (`{{date}}`, `{{time}}`, `{{clipboard}}`, `{{selection}}`, fill-in args)
      2. Custom AI Workflows
@@ -52,7 +52,7 @@ KeyDeck is a **dedicated utility keyboard** for iOS — switch to it via the glo
 | Target | Bundle ID | Responsibility |
 | --- | --- | --- |
 | `KeyDeckApp` | `com.alexfloresescarcega.keydeck` | Companion app: persistent `AVAudioSession` & recorder, AI processing coordinator, Live Activity lifecycle, transcript/audio fallback log, visual workflow builder, settings & Keychain management. |
-| `KeyDeckKeyboard` | `com.alexfloresescarcega.keydeck.keyboard` | Lightweight `UIInputViewController` hosting SwiftUI Dashboard, Undo/Tweak bar, Alfred Search Palette + mini-QWERTY, and `textDocumentProxy` text manipulation. |
+| `KeyDeckKeyboard` | `com.alexfloresescarcega.keydeck.keyboard` | Lightweight `UIInputViewController` hosting SwiftUI Dashboard, Undo/Tweak bar, Search Palette + mini-QWERTY, and `textDocumentProxy` text manipulation. |
 | `KeyDeckWidgets` | `com.alexfloresescarcega.keydeck.widgets` | WidgetKit extension providing Dynamic Island & Lock Screen Live Activity for active mic session / recording / processing status. |
 | `KeyDeckKit` | Local Swift Package | Shared models, App Group store, Shared Keychain, Darwin IPC notifier, AI clients (Gemini & OpenAI), PromptBuilder, Pipeline Engine, Inline Utilities. |
 
@@ -61,5 +61,5 @@ KeyDeck is a **dedicated utility keyboard** for iOS — switch to it via the glo
 ## Phased Delivery Plan
 
 - **Phase 1 — Foundation & Voice**: XcodeGen multi-target project, `KeyDeckKit` package, Companion App, Keyboard Extension Dashboard, Persistent Audio Session + Live Activity, Gemini/OpenAI BYOK clients, Rambler & Voice Edit with Auto-Insert + Undo/Tweak bar, Custom Dictionary, Privacy Toggle, Local Transcript & Audio Fallback Log.
-- **Phase 2 — Alfred Palette & Utilities**: Expandable Alfred Search Bar, compact built-in mini-QWERTY, Dynamic Snippets (`{{date}}`, `{{time}}`, `{{clipboard}}`, fill-in args), Inline Calculator/Converters/Generators, Clipboard Manager & Pinned Clips.
+- **Phase 2 — Command Palette & Utilities**: Expandable Search Bar, compact built-in mini-QWERTY, Dynamic Snippets (`{{date}}`, `{{time}}`, `{{clipboard}}`, fill-in args), Inline Calculator/Converters/Generators, Clipboard Manager & Pinned Clips.
 - **Phase 3 — Composable Workflows & Sync**: Multi-step Pipeline Engine (LLM, regex, template, HTTP fetch/webhook, Apple Shortcuts), Visual Workflow Builder, iCloud Drive JSON Import/Export, final polish.
