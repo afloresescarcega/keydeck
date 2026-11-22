@@ -14,7 +14,7 @@ BIN="$(swift build --package-path "$PKG" --show-bin-path)"
 PROFDATA="$BIN/codecov/default.profdata"
 XCTEST="$(find "$BIN" -maxdepth 1 -name '*.xctest' | head -n1)"
 # On macOS the .xctest is a bundle; the executable lives inside it.
-if [ -d "$XCTEST" ]; then
+if [[ -d "$XCTEST" ]]; then
   XCTEST="$XCTEST/Contents/MacOS/$(basename "$XCTEST" .xctest)"
 fi
 

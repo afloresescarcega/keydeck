@@ -54,9 +54,9 @@ struct KeyDeckApp: App {
                 .flatMap(UUID.init(uuidString:))
 
             Task {
-                if url.path == "/arm" {
+                if url.path == "/arm" { // NOSONAR: fixed deep-link route
                     await sessionManager.armSession()
-                } else if url.path == "/disarm" {
+                } else if url.path == "/disarm" { // NOSONAR: fixed deep-link route
                     await sessionManager.disarmSession()
                 } else {
                     await sessionManager.handleExternalStart(mode: mode, requestID: reqID)

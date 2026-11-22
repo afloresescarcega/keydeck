@@ -64,25 +64,21 @@ struct KeycapButtonStyle: ButtonStyle {
     }
 
     private var borderColor: Color {
-        switch variant {
-        case .destructive:
+        if variant == .destructive {
             return Color.white.opacity(0.15)
-        default:
-            return colorScheme == .dark
-                ? Color.white.opacity(0.09)
-                : Color.black.opacity(0.06)
         }
+        return colorScheme == .dark
+            ? Color.white.opacity(0.09)
+            : Color.black.opacity(0.06)
     }
 
     private var shadowColor: Color {
-        switch variant {
-        case .destructive:
+        if variant == .destructive {
             return Color.red.opacity(0.28)
-        default:
-            return colorScheme == .dark
-                ? Color.black.opacity(0.45)
-                : Color.black.opacity(0.16)
         }
+        return colorScheme == .dark
+            ? Color.black.opacity(0.45)
+            : Color.black.opacity(0.16)
     }
 }
 

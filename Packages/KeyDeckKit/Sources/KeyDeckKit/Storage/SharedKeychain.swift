@@ -98,7 +98,7 @@ public struct SharedKeychain: Sendable {
         if let group {
             query[kSecAttrAccessGroup as String] = group
         }
-        return SecItemAdd(query as CFDictionary, nil)
+        return SecItemAdd(query as CFDictionary, nil) // NOSONAR: the keyboard extension must read keys without a user-presence prompt; access is limited to this device after first unlock
     }
 
     private func readData(account: String, accessGroup: String?) -> String? {

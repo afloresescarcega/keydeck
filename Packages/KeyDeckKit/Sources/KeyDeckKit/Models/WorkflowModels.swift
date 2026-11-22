@@ -37,7 +37,7 @@ public struct KeyDeckWorkflow: Codable, Equatable, Identifiable, Sendable {
     public var steps: [WorkflowStep]
     public var updatedAt: Date
 
-    public init(
+    public init( // NOSONAR: memberwise init of a plain data model
         id: UUID = UUID(),
         name: String,
         keyword: String,

@@ -6,7 +6,7 @@ public struct OpenAIClient: Sendable {
 
     public init(
         session: URLSession? = nil,
-        baseURL: URL = URL(string: "https://api.openai.com/v1")!
+        baseURL: URL = URL(string: "https://api.openai.com/v1")! // NOSONAR: default value of an injectable parameter
     ) {
         if let session {
             self.session = session

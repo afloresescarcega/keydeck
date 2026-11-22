@@ -386,7 +386,7 @@ private struct SnippetEditorSheet: View {
                                 templateBody,
                                 context: SnippetContext(
                                     argument: inputPlaceholder.isEmpty ? "Alex" : inputPlaceholder,
-                                    clipboard: "https://example.com",
+                                    clipboard: "https://example.com", // NOSONAR: sample value for a preview
                                     selection: "Selected text"
                                 )
                             )

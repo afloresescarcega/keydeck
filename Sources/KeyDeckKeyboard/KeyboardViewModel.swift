@@ -15,7 +15,7 @@ struct InsertionRecord: Equatable {
 @Observable
 final class KeyboardViewModel {
     private(set) var voiceState: VoiceIPCState = VoiceIPCState()
-    private(set) var settings: KeyDeckSettings = .default
+    private(set) var settings: KeyDeckSettings = .standard
     private(set) var hasFullAccess: Bool = false
     private(set) var needsGlobeKey: Bool = true
     private(set) var hasSelectedText: Bool = false
@@ -47,7 +47,7 @@ final class KeyboardViewModel {
 
     private var pendingReplacedTextByRequestID: [UUID: String] = [:]
 
-    init(
+    init( // NOSONAR: explicit dependency injection of host callbacks
         store: SharedStore = .shared,
         aiService: VoiceProcessingService = VoiceProcessingService(),
         hasFullAccess: @escaping () -> Bool,
@@ -57,7 +57,7 @@ final class KeyboardViewModel {
         deleteBackwardCount: @escaping (Int) -> Void,
         advanceKeyboard: @escaping () -> Void,
         openURL: @escaping (URL) -> Void,
-        onHeightModeChanged: @escaping (Bool) -> Void = { _ in }
+        onHeightModeChanged: @escaping (Bool) -> Void = { _ in /* Optional: hosts that don't resize ignore height changes. */ }
     ) {
         self.store = store
         self.aiService = aiService

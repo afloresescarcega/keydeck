@@ -70,7 +70,7 @@ public struct KeyDeckSettings: Codable, Equatable, Sendable {
     /// When true, kills the background mic session immediately after each dictation finishes.
     public var autoDisarmAfterInsert: Bool
 
-    public init(
+    public init( // NOSONAR: memberwise init of a plain data model
         voicePipeline: VoicePipelineMode = .geminiSinglePass,
         geminiVoiceModel: String = "gemini-2.5-flash",
         geminiTextModel: String = "gemini-2.5-flash",
@@ -102,7 +102,7 @@ public struct KeyDeckSettings: Codable, Equatable, Sendable {
 
     public init(from decoder: any Decoder) throws {
         let c = try decoder.container(keyedBy: CodingKeys.self)
-        let d = KeyDeckSettings.default
+        let d = KeyDeckSettings.standard
         self.voicePipeline = try c.decodeIfPresent(VoicePipelineMode.self, forKey: .voicePipeline) ?? d.voicePipeline
         self.geminiVoiceModel = try c.decodeIfPresent(String.self, forKey: .geminiVoiceModel) ?? d.geminiVoiceModel
         self.geminiTextModel = try c.decodeIfPresent(String.self, forKey: .geminiTextModel) ?? d.geminiTextModel
@@ -118,5 +118,5 @@ public struct KeyDeckSettings: Codable, Equatable, Sendable {
         self.autoDisarmAfterInsert = try c.decodeIfPresent(Bool.self, forKey: .autoDisarmAfterInsert) ?? d.autoDisarmAfterInsert
     }
 
-    public static let `default` = KeyDeckSettings()
+    public static let standard = KeyDeckSettings()
 }

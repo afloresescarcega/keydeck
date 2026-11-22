@@ -42,7 +42,7 @@ public enum KeyDeckConstants {
             var components = URLComponents()
             components.scheme = urlScheme
             components.host = "voice"
-            components.path = "/start"
+            components.path = "/start" // NOSONAR: fixed deep-link route
             components.queryItems = [
                 URLQueryItem(name: "mode", value: mode.rawValue),
                 URLQueryItem(name: "requestId", value: requestID.uuidString)
