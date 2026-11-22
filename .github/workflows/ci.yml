@@ -36,3 +36,19 @@ jobs:
             echo "Config/Local.xcconfig must never be committed!"
             exit 1
           fi
+
+  sonarcloud:
+    runs-on: macos-15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # full history for accurate blame / new-code detection
+
+      - name: Run tests with coverage
+        run: ./scripts/sonar-coverage.sh
+
+      - name: SonarCloud scan
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
