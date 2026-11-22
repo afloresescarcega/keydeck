@@ -86,7 +86,7 @@ public struct VoiceIPCCommand: Codable, Equatable, Sendable {
     public var previousOutput: String?
     public var createdAt: Date
 
-    public init(
+    public init( // NOSONAR: memberwise init of a plain data model
         id: UUID = UUID(),
         kind: VoiceIPCCommandKind,
         mode: VoiceMode = .rambler,
@@ -117,7 +117,7 @@ public struct VoiceIPCState: Codable, Equatable, Sendable {
     public var heartbeatAt: Date
     public var errorMessage: String?
 
-    public init(
+    public init( // NOSONAR: memberwise init of a plain data model
         phase: VoicePhase = .idle,
         activeMode: VoiceMode = .rambler,
         activeRequestID: UUID? = nil,
@@ -186,7 +186,7 @@ public struct VoiceResult: Codable, Equatable, Sendable {
     public var createdAt: Date
     public var consumed: Bool
 
-    public init(
+    public init( // NOSONAR: memberwise init of a plain data model
         id: UUID = UUID(),
         requestID: UUID,
         mode: VoiceMode,
@@ -233,7 +233,7 @@ public struct TranscriptEntry: Codable, Equatable, Identifiable, Sendable {
     public var modelUsed: String?
     public var errorMessage: String?
 
-    public init(
+    public init( // NOSONAR: memberwise init of a plain data model
         id: UUID = UUID(),
         createdAt: Date = Date(),
         mode: VoiceMode,

@@ -6,7 +6,7 @@ public struct GeminiClient: Sendable {
 
     public init(
         session: URLSession? = nil,
-        baseURL: URL = URL(string: "https://generativelanguage.googleapis.com/v1beta")!
+        baseURL: URL = URL(string: "https://generativelanguage.googleapis.com/v1beta")! // NOSONAR: default value of an injectable parameter
     ) {
         if let session {
             self.session = session
@@ -22,8 +22,13 @@ public struct GeminiClient: Sendable {
     }
 
     private struct SinglePassPayload: Codable {
-        let raw_transcript: String
-        let output_text: String
+        let rawTranscript: String
+        let outputText: String
+
+        enum CodingKeys: String, CodingKey {
+            case rawTranscript = "raw_transcript"
+            case outputText = "output_text"
+        }
     }
 
     public func processAudioSinglePass(
@@ -118,7 +123,7 @@ public struct GeminiClient: Sendable {
         let cleanedJSON = Self.stripCodeFences(rawText)
         if let data = cleanedJSON.data(using: .utf8),
            let payload = try? JSONDecoder().decode(SinglePassPayload.self, from: data) {
-            return (payload.output_text, payload.raw_transcript)
+            return (payload.outputText, payload.rawTranscript)
         }
         return (rawText, rawText)
     }

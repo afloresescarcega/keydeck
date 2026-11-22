@@ -35,7 +35,7 @@ public struct AlfredSearchResult: Equatable, Identifiable, Sendable {
     public var clipboardItemID: UUID?
     public var isPinned: Bool
 
-    public init(
+    public init( // NOSONAR: memberwise init of a plain data model
         id: String,
         title: String,
         subtitle: String,

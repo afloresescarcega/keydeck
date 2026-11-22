@@ -16,14 +16,14 @@ final class LiveAudioCaptureEngine: @unchecked Sendable {
     }
 
     private let lock = NSLock()
-    private var _isArmed = false
-    private var _isCapturing = false
-    private var _activeFile: AVAudioFile?
-    private var _activeFileURL: URL?
-    private var _activeMimeType: String = "audio/mp4"
-    private var _captureStartedAt: Date?
-    private var _latestLevel: Float = 0
-    private var _writeError: String?
+    private var storedIsArmed = false
+    private var storedIsCapturing = false
+    private var storedActiveFile: AVAudioFile?
+    private var storedActiveFileURL: URL?
+    private var storedActiveMimeType: String = "audio/mp4"
+    private var storedCaptureStartedAt: Date?
+    private var storedLatestLevel: Float = 0
+    private var storedWriteError: String?
 
     private let engine = AVAudioEngine()
     private var tapInstalled = false
@@ -33,17 +33,17 @@ final class LiveAudioCaptureEngine: @unchecked Sendable {
 
     var currentAudioLevel: Float {
         lock.lock(); defer { lock.unlock() }
-        return _latestLevel
+        return storedLatestLevel
     }
 
     var isArmed: Bool {
         lock.lock(); defer { lock.unlock() }
-        return _isArmed
+        return storedIsArmed
     }
 
     var isCapturing: Bool {
         lock.lock(); defer { lock.unlock() }
-        return _isCapturing
+        return storedIsCapturing
     }
 
     init() {
@@ -84,12 +84,12 @@ final class LiveAudioCaptureEngine: @unchecked Sendable {
         try session.setActive(true)
 
         if engine.isRunning && tapInstalled {
-            lock.lock(); _isArmed = true; lock.unlock()
+            lock.lock(); storedIsArmed = true; lock.unlock()
             return
         }
 
         try startEngineWithInputTap()
-        lock.lock(); _isArmed = true; lock.unlock()
+        lock.lock(); storedIsArmed = true; lock.unlock()
     }
 
     func disarm() {
@@ -99,8 +99,8 @@ final class LiveAudioCaptureEngine: @unchecked Sendable {
             engine.stop()
         }
         lock.lock()
-        _isArmed = false
-        _latestLevel = 0
+        storedIsArmed = false
+        storedLatestLevel = 0
         lock.unlock()
         try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
     }
@@ -126,13 +126,13 @@ final class LiveAudioCaptureEngine: @unchecked Sendable {
         )
 
         lock.lock()
-        _activeFile = file
-        _activeFileURL = fileURL
-        _activeMimeType = mimeType
-        _captureStartedAt = Date()
-        _writeError = nil
-        _isCapturing = true
-        _isArmed = true
+        storedActiveFile = file
+        storedActiveFileURL = fileURL
+        storedActiveMimeType = mimeType
+        storedCaptureStartedAt = Date()
+        storedWriteError = nil
+        storedIsCapturing = true
+        storedIsArmed = true
         lock.unlock()
 
         return (fileURL, mimeType)
@@ -140,14 +140,14 @@ final class LiveAudioCaptureEngine: @unchecked Sendable {
 
     func endCapture(discard: Bool) -> CaptureSummary? {
         lock.lock()
-        let url = _activeFileURL
-        let mime = _activeMimeType
-        let started = _captureStartedAt
-        _isCapturing = false
-        _activeFile = nil // Closes and flushes the AVAudioFile cleanly
-        _activeFileURL = nil
-        _captureStartedAt = nil
-        _latestLevel = 0
+        let url = storedActiveFileURL
+        let mime = storedActiveMimeType
+        let started = storedCaptureStartedAt
+        storedIsCapturing = false
+        storedActiveFile = nil // Closes and flushes the AVAudioFile cleanly
+        storedActiveFileURL = nil
+        storedCaptureStartedAt = nil
+        storedLatestLevel = 0
         lock.unlock()
 
         guard let url else { return nil }
@@ -204,7 +204,7 @@ final class LiveAudioCaptureEngine: @unchecked Sendable {
 
     private func handleConfigurationChange() {
         lock.lock()
-        let shouldRestart = _isArmed && !_isCapturing
+        let shouldRestart = storedIsArmed && !storedIsCapturing
         lock.unlock()
         if shouldRestart {
             try? startEngineWithInputTap()
@@ -220,7 +220,7 @@ final class LiveAudioCaptureEngine: @unchecked Sendable {
 
         if type == .ended {
             lock.lock()
-            let wasArmed = _isArmed
+            let wasArmed = storedIsArmed
             lock.unlock()
             guard wasArmed else { return }
 
@@ -273,19 +273,19 @@ final class LiveAudioCaptureEngine: @unchecked Sendable {
 
     private func processIncomingBuffer(_ buffer: AVAudioPCMBuffer) {
         lock.lock()
-        let shouldWrite = _isCapturing
+        let shouldWrite = storedIsCapturing
         lock.unlock()
         guard shouldWrite else { return }
 
         let rms = computeNormalizedLevel(buffer: buffer)
         lock.lock()
         defer { lock.unlock() }
-        _latestLevel = rms
-        guard _isCapturing, let file = _activeFile else { return }
+        storedLatestLevel = rms
+        guard storedIsCapturing, let file = storedActiveFile else { return }
         do {
             try file.write(from: buffer)
         } catch {
-            _writeError = error.localizedDescription
+            storedWriteError = error.localizedDescription
         }
     }
 

@@ -9,3 +9,4 @@ xcuserdata/
 Config/Local.xcconfig
 *.env
 .env*
+build/

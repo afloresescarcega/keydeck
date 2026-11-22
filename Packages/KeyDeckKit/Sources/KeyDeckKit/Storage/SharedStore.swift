@@ -44,7 +44,7 @@ public final class SharedStore: @unchecked Sendable {
     // MARK: - Settings
 
     public func loadSettings() -> KeyDeckSettings {
-        read(KeyDeckSettings.self, filename: KeyDeckConstants.FileNames.settings) ?? .default
+        read(KeyDeckSettings.self, filename: KeyDeckConstants.FileNames.settings) ?? .standard
     }
 
     public func saveSettings(_ settings: KeyDeckSettings) {

@@ -176,7 +176,6 @@
       border-radius: 10px;
       border: 1px solid transparent;
       cursor: pointer;
-      transition: transform 0.14s ease, opacity 0.14s ease;
     }
     .btn:active { transform: scale(0.98); }
     .btn:hover { text-decoration: none; opacity: 0.92; }
@@ -236,7 +235,7 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      transition: all 0.2s ease;
+      transition: background-color 0.2s ease, color 0.2s ease;
     }
     .island-dot {
       width: 7px;
@@ -275,7 +274,7 @@
       min-height: 54px;
       color: var(--text);
       white-space: pre-wrap;
-      word-break: break-word;
+      overflow-wrap: anywhere;
     }
     .composer.empty { color: var(--text-secondary); }
 
@@ -301,7 +300,6 @@
       box-shadow: 0 1px 0 var(--key-shadow);
       font-family: inherit;
       cursor: pointer;
-      transition: transform 0.12s ease;
     }
     .keycap:active { transform: scale(0.97); }
     .keycap.sec { background: var(--key-sec); }
@@ -570,6 +568,15 @@
     }
     .footer-links a { color: var(--text-secondary); }
     .footer-links a:hover { color: var(--text); }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .btn { transition: transform 0.14s ease, opacity 0.14s ease; }
+      .keycap { transition: transform 0.12s ease; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .btn:active, .keycap:active { transform: none; }
+      .island { transition: none; }
+    }
   </style>
 </head>
 <body>
@@ -640,7 +647,7 @@
           <div class="kbd" id="dashboardView">
             <div class="kbd-row">
               <button class="keycap sec search-trigger" id="openPaletteBtn" type="button">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
                 Commands, snippets, math…
               </button>
               <button class="keycap sec kill-btn live" id="killMicBtn" type="button">Kill Mic</button>
@@ -649,7 +656,7 @@
             <div class="voice-grid">
               <button class="keycap voice-key" id="ramblerBtn" type="button">
                 <span class="voice-icon solid">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v20M7 7v10M17 7v10M2 10v4M22 10v4"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M12 2v20M7 7v10M17 7v10M2 10v4M22 10v4"/></svg>
                 </span>
                 <div>
                   <span class="voice-title">Rambler</span>
@@ -658,7 +665,7 @@
               </button>
               <button class="keycap voice-key" id="voiceEditBtn" type="button">
                 <span class="voice-icon soft">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m15 4 5 5L7 22H2v-5Z"/></svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="m15 4 5 5L7 22H2v-5Z"/></svg>
                 </span>
                 <div>
                   <span class="voice-title">Voice Edit</span>
@@ -683,7 +690,7 @@
           <div class="kbd" id="paletteView" style="display:none;">
             <div class="kbd-row">
               <button class="keycap sec util-key" id="closePaletteBtn" type="button" style="width:34px;height:34px;">←</button>
-              <input class="palette-input" id="paletteInput" type="text" placeholder="Type math, 72f to c, intro Bob, uuid…">
+              <input class="palette-input" id="paletteInput" type="text" aria-label="Search commands, snippets and math" placeholder="Type math, 72f to c, intro Bob, uuid…">
             </div>
 
             <div class="palette-results" id="paletteResults"></div>
@@ -899,7 +906,7 @@ xcodegen generate &amp;&amp; open KeyDeck.xcodeproj</code></pre>
         btn.onclick = () => { demoText += new Date().toISOString().slice(0, 10); renderComposer(); };
       });
       dashboardChips.querySelectorAll('[data-open-query]').forEach(btn => {
-        btn.onclick = () => openPalette(btn.getAttribute('data-open-query'));
+        btn.onclick = () => openPalette(btn.dataset.openQuery);
       });
     }
     bindDefaultChips();
@@ -909,7 +916,7 @@ xcodegen generate &amp;&amp; open KeyDeck.xcodeproj</code></pre>
 
     document.querySelectorAll('[data-preset]').forEach(btn => {
       btn.addEventListener('click', () => {
-        const q = btn.getAttribute('data-preset');
+        const q = btn.dataset.preset;
         paletteInput.value = q;
         renderPaletteResults(q);
       });
@@ -922,13 +929,13 @@ xcodegen generate &amp;&amp; open KeyDeck.xcodeproj</code></pre>
 
       const pct = l.match(/^(\d+(?:\.\d+)?)\s*%\s+of\s+(\d+(?:\.\d+)?)$/);
       if (pct) {
-        const val = +((parseFloat(pct[1]) / 100) * parseFloat(pct[2])).toFixed(4);
+        const val = +((Number.parseFloat(pct[1]) / 100) * Number.parseFloat(pct[2])).toFixed(4);
         items.push({ title: String(val), sub: `${pct[1]}% of ${pct[2]}`, badge: 'Math', insert: String(val) });
       }
 
       const temp = l.match(/^([+-]?\d+(?:\.\d+)?)\s*([cf])\s+(?:to|in)\s+([cf])$/);
       if (temp && temp[2] !== temp[3]) {
-        const v = parseFloat(temp[1]);
+        const v = Number.parseFloat(temp[1]);
         const out = temp[2] === 'f' ? `${+(((v - 32) * 5) / 9).toFixed(1)}°C` : `${+((v * 9) / 5 + 32).toFixed(1)}°F`;
         items.push({ title: out, sub: `${v}${temp[2].toUpperCase()} → ${temp[3].toUpperCase()}`, badge: 'Unit', insert: out });
       }
@@ -938,7 +945,7 @@ xcodegen generate &amp;&amp; open KeyDeck.xcodeproj</code></pre>
         items.push({ title: id, sub: 'Generate UUID v4', badge: 'Gen', insert: id });
       }
       if (l === 'shrug') {
-        items.push({ title: '¯\\_(ツ)_/¯', sub: 'Insert shrug', badge: 'Sym', insert: '¯\\_(ツ)_/¯' });
+        items.push({ title: String.raw`¯\_(ツ)_/¯`, sub: 'Insert shrug', badge: 'Sym', insert: String.raw`¯\_(ツ)_/¯` });
       }
       if (l.startsWith('intro')) {
         const arg = q.slice(5).trim() || 'Alex';

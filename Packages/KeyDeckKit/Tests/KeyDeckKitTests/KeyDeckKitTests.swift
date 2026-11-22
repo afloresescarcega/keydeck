@@ -7,7 +7,7 @@ struct KeyDeckKitTests {
 
     @Test("PromptBuilder includes custom dictionary, personal instructions, and surrounding context when enabled")
     func promptBuilderIncludesContextAndDictionary() {
-        var settings = KeyDeckSettings.default
+        var settings = KeyDeckSettings.standard
         settings.customDictionary = ["KeyDeck", "Alex Flores Escarcega", "SwiftData"]
         settings.personalInstructions = "Prefer concise sentences without fluff."
         settings.sendSurroundingContext = true
@@ -26,7 +26,7 @@ struct KeyDeckKitTests {
 
     @Test("PromptBuilder omits surrounding context for Rambler when privacy toggle is off")
     func promptBuilderRespectsPrivacyToggle() {
-        var settings = KeyDeckSettings.default
+        var settings = KeyDeckSettings.standard
         settings.sendSurroundingContext = false
 
         let context = TextContextSnapshot(beforeCursor: "Super secret draft text")
@@ -55,7 +55,7 @@ struct KeyDeckKitTests {
 
         let store = SharedStore(containerURL: tempDir)
 
-        var settings = KeyDeckSettings.default
+        var settings = KeyDeckSettings.standard
         settings.accentColor = .teal
         settings.autoDisarmAfterInsert = true
         settings.customDictionary = ["KeyDeck"]
@@ -133,7 +133,7 @@ struct KeyDeckKitTests {
         let fixedDate = Date(timeIntervalSince1970: 1_795_370_400) // Nov 22, 2026
         let ctx = SnippetContext(
             argument: "Bob",
-            clipboard: "https://example.com",
+            clipboard: "https://example.com", // NOSONAR: test fixture
             selection: "hello",
             now: fixedDate
         )
@@ -142,7 +142,7 @@ struct KeyDeckKitTests {
             context: ctx
         )
         #expect(expanded.contains("Hey Bob"))
-        #expect(expanded.contains("https://example.com"))
+        #expect(expanded.contains("https://example.com")) // NOSONAR: test fixture
         #expect(expanded.contains("sel: hello"))
         #expect(expanded.contains("2026-11-22"))
     }
