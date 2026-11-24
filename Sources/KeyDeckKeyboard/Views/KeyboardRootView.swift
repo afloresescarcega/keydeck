@@ -8,6 +8,8 @@ struct KeyboardRootView: View {
         Group {
             if viewModel.isPaletteOpen {
                 CommandPaletteView(viewModel: viewModel)
+            } else if viewModel.isTypingMode {
+                TypingView(viewModel: viewModel)
             } else {
                 DashboardView(viewModel: viewModel)
             }

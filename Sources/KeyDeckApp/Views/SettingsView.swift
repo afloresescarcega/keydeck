@@ -8,28 +8,36 @@ struct SettingsView: View {
     @State private var openAIKeyInput: String = ""
     @State private var newDictionaryTerm: String = ""
     @State private var keySaveBanner: String?
+    @State private var showingAIConsent: Bool = false
+    @State private var showingAIDisclosure: Bool = false
 
     private let timeoutOptions: [(label: String, minutes: Int)] = [
         ("2 minutes", 2),
         ("5 minutes", 5),
         ("15 minutes", 15),
-        ("30 minutes", 30),
-        ("Manual only", 0)
+        ("30 minutes", 30)
     ]
 
     var body: some View {
         NavigationStack {
             Form {
                 apiKeysSection
+                aiDataSharingSection
                 microphoneControlSection
                 voiceRoutingSection
                 personalizationSection
                 appearanceSection
+                aboutSection
             }
             .navigationTitle("Settings")
             .onAppear {
                 geminiKeyInput = sessionManager.readAPIKey(.gemini)
                 openAIKeyInput = sessionManager.readAPIKey(.openAI)
+            }
+            .sheet(isPresented: $showingAIConsent) {
+                AIConsentView { allowed in
+                    sessionManager.settings.aiDataSharingConsent = allowed
+                }
             }
         }
     }
@@ -73,6 +81,10 @@ struct SettingsView: View {
                     try sessionManager.saveAPIKey(geminiKeyInput, for: .gemini)
                     try sessionManager.saveAPIKey(openAIKeyInput, for: .openAI)
                     keySaveBanner = "Saved securely in Keychain."
+                    let hasAnyKey = sessionManager.hasAPIKey(.gemini) || sessionManager.hasAPIKey(.openAI)
+                    if hasAnyKey && !sessionManager.settings.aiDataSharingConsent {
+                        showingAIConsent = true
+                    }
                 } catch {
                     keySaveBanner = error.localizedDescription
                 }
@@ -87,6 +99,35 @@ struct SettingsView: View {
             Text("API Keys")
         } footer: {
             Text("Stored in your iOS Shared Keychain. Calls go directly from your iPhone to Gemini or OpenAI with no backend.")
+        }
+    }
+
+    private var aiDataSharingSection: some View {
+        Section {
+            Toggle("Allow AI Data Sharing", isOn: Binding(
+                get: { sessionManager.settings.aiDataSharingConsent },
+                set: { newValue in
+                    if newValue {
+                        showingAIConsent = true
+                    } else {
+                        sessionManager.settings.aiDataSharingConsent = false
+                    }
+                }
+            ))
+            Button("What Gets Shared?") {
+                if sessionManager.settings.aiDataSharingConsent {
+                    showingAIDisclosure = true
+                } else {
+                    showingAIConsent = true
+                }
+            }
+            .sheet(isPresented: $showingAIDisclosure) {
+                AIConsentView(isAlreadyAllowed: true)
+            }
+        } header: {
+            Text("AI Data Sharing")
+        } footer: {
+            Text("When on, your recordings and the text you choose to process are sent to Google Gemini or OpenAI using your own API key. When off, KeyDeck makes no AI requests.")
         }
     }
 
@@ -109,8 +150,8 @@ struct SettingsView: View {
         } footer: {
             Text(
                 sessionManager.settings.autoDisarmAfterInsert
-                    ? "The microphone shuts off automatically as soon as your text is inserted. The next dictation will briefly open KeyDeck to re-arm."
-                    : "Tap the green Mic On pill in the keyboard anytime to kill the mic immediately without leaving your app."
+                    ? "The microphone shuts off automatically as soon as your text is inserted. Open KeyDeck and tap Start Mic before your next dictation."
+                    : "Tap Kill Mic in the keyboard's top bar anytime to turn off the mic without leaving your app."
             )
         }
     }
@@ -193,6 +234,21 @@ struct SettingsView: View {
             Text("Dictionary & Style")
         } footer: {
             Text("Injected into Rambler, Voice Edit, and Quick Tweak prompts.")
+        }
+    }
+
+    private var aboutSection: some View {
+        Section {
+            Link(destination: KeyDeckConstants.Links.privacyPolicy) {
+                Label("Privacy Policy", systemImage: "hand.raised")
+            }
+            Link(destination: KeyDeckConstants.Links.support) {
+                Label("Support & Feedback", systemImage: "questionmark.circle")
+            }
+        } header: {
+            Text("About")
+        } footer: {
+            Text("KeyDeck \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "")")
         }
     }
 

@@ -17,7 +17,7 @@ KeyDeck is a **dedicated utility keyboard** for iOS — switch to it via the glo
 ### Core Pillars
 
 1. **Voice Dictation — Rambler & Voice Edit**
-   - **Persistent Background Audio Session + Fallback** (Wispr Flow style): First tap opens KeyDeck briefly to start a background audio session with a Dynamic Island / Live Activity indicator; once armed, swipe back and record in-place from the keyboard without leaving your app. Automatic fallback if iOS reclaims the session.
+   - **Persistent Background Audio Session + Fallback** (Wispr Flow style): Tap **Start Mic** in the KeyDeck app to start a background audio session (the keyboard never launches the app itself, per App Review Guideline 4.4.1; it only shows a hint) with a Dynamic Island / Live Activity indicator; once armed, swipe back and record in-place from the keyboard without leaving your app. Automatic fallback if iOS reclaims the session.
    - **Rambler Mode**: Talk freely and messily; AI distills your stream of consciousness into clean sentences, paragraphs, or lists.
    - **Voice Edit**: Speak an instruction to transform selected or surrounding text in the input field (e.g., *"make this shorter"*, *"fix tone"*, *"translate to Spanish"*).
    - **Auto-Insert + Contextual Undo / Tweak Bar**: Output inserts immediately into the active field, paired with one-tap `Undo`, `Shorter`, `Bullets`, `Casual`, and `Raw` chips.

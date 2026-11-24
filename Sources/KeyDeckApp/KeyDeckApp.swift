@@ -58,7 +58,7 @@ struct KeyDeckApp: App {
                     await sessionManager.armSession()
                 } else if url.path == "/disarm" { // NOSONAR: fixed deep-link route
                     await sessionManager.disarmSession()
-                } else {
+                } else if url.path == "/start" { // NOSONAR: fixed deep-link route
                     await sessionManager.handleExternalStart(mode: mode, requestID: reqID)
                 }
             }

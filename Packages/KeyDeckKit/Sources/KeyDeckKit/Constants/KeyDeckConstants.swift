@@ -63,6 +63,13 @@ public enum KeyDeckConstants {
         }
     }
 
+    public enum Links {
+        // swiftlint:disable force_unwrapping
+        public static let privacyPolicy = URL(string: "https://afloresescarcega.github.io/keydeck/privacy.html")!
+        public static let support = URL(string: "https://github.com/afloresescarcega/keydeck/issues")!
+        // swiftlint:enable force_unwrapping
+    }
+
     public enum FileNames {
         public static let settings = "settings.json"
         public static let ipcState = "voice_ipc_state.json"

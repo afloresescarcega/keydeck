@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Compact built-in tactile mini-QWERTY dedicated purely to command palette queries,
+/// Compact built-in tactile mini-QWERTY used for typing into the host field (TypingView) and for command palette queries,
 /// math expressions, unit/timezone conversions, and snippet fill-in arguments.
 struct MiniQWERTYView: View {
     let onCharacter: (String) -> Void
@@ -20,7 +20,7 @@ struct MiniQWERTYView: View {
     private let numberRows: [[String]] = [
         ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
         ["+", "-", "*", "/", "(", ")", "%", "=", ":", "."],
-        [";", "@", "#", "$", "_", "&", "?"]
+        [",", "!", "?", "'", "\"", "@", "#"]
     ]
 
     private let keyHeight: CGFloat = 37

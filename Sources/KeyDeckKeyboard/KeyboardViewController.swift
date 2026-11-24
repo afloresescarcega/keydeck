@@ -22,7 +22,6 @@ final class KeyboardViewController: UIInputViewController {
                 }
             },
             advanceKeyboard: { [weak self] in self?.advanceToNextInputMode() },
-            openURL: { [weak self] url in self?.openContainerURL(url) },
             onHeightModeChanged: { [weak self] isExpanded in
                 self?.updateKeyboardHeight(expanded: isExpanded)
             }
@@ -45,7 +44,7 @@ final class KeyboardViewController: UIInputViewController {
         host.didMove(toParent: self)
         self.hostingController = host
 
-        let constraint = view.heightAnchor.constraint(equalToConstant: 254)
+        let constraint = view.heightAnchor.constraint(equalToConstant: 268)
         constraint.priority = .defaultHigh
         constraint.isActive = true
         self.heightConstraint = constraint
@@ -67,7 +66,7 @@ final class KeyboardViewController: UIInputViewController {
     }
 
     private func updateKeyboardHeight(expanded: Bool) {
-        let target: CGFloat = expanded ? 344 : 254
+        let target: CGFloat = expanded ? 344 : 268
         guard heightConstraint?.constant != target else { return }
         heightConstraint?.constant = target
         view.layoutIfNeeded()
@@ -84,28 +83,5 @@ final class KeyboardViewController: UIInputViewController {
             afterCursor: proxy.documentContextAfterInput ?? "",
             selectedText: proxy.selectedText ?? ""
         )
-    }
-
-    private func openContainerURL(_ url: URL) {
-        var responder: UIResponder? = self
-        let selector = NSSelectorFromString("openURL:")
-        let modernSelector = NSSelectorFromString("openURL:options:completionHandler:")
-
-        while let current = responder {
-            if let application = current as? UIApplication {
-                application.open(url, options: [:], completionHandler: nil)
-                return
-            }
-            if current.responds(to: modernSelector) {
-                current.perform(modernSelector, with: url, with: nil)
-                return
-            }
-            if current.responds(to: selector) {
-                current.perform(selector, with: url)
-                return
-            }
-            responder = current.next
-        }
-        extensionContext?.open(url, completionHandler: nil)
     }
 }

@@ -18,6 +18,8 @@ final class VoiceSessionManager {
     private(set) var transcriptLog: [TranscriptEntry] = []
     private(set) var permissionDenied: Bool = false
     private(set) var launchedFromKeyboardBanner: Bool = false
+    /// Set when the user tries to use the mic before allowing AI data sharing; ContentView shows the consent sheet.
+    var consentPromptRequested: Bool = false
 
     var settings: KeyDeckSettings {
         didSet {
@@ -71,6 +73,7 @@ final class VoiceSessionManager {
     // MARK: - Public Controls
 
     func armSession() async {
+        guard ensureReadyForAI() else { return }
         guard await ensureMicPermission() else { return }
         do {
             try captureEngine.arm()
@@ -121,6 +124,7 @@ final class VoiceSessionManager {
         requestID: UUID = UUID(),
         context: TextContextSnapshot = TextContextSnapshot()
     ) async {
+        guard ensureReadyForAI() else { return }
         guard await ensureMicPermission() else { return }
 
         if !isSessionArmed || !captureEngine.isArmed {
@@ -385,6 +389,19 @@ final class VoiceSessionManager {
     }
 
     // MARK: - Permissions & Timers
+
+    /// Nothing is recorded unless an API key exists and the user allowed AI data sharing (Guideline 5.1.2(i)).
+    private func ensureReadyForAI() -> Bool {
+        guard hasAPIKey(.gemini) || hasAPIKey(.openAI) else {
+            fail(with: "Add a Gemini or OpenAI API key in Settings to use voice features.")
+            return false
+        }
+        guard settings.aiDataSharingConsent else {
+            consentPromptRequested = true
+            return false
+        }
+        return true
+    }
 
     private func ensureMicPermission() async -> Bool {
         switch AVAudioApplication.shared.recordPermission {

@@ -6,6 +6,7 @@ public enum AIError: LocalizedError, Sendable {
     case httpError(statusCode: Int, message: String)
     case emptyOutput
     case missingAudioFile
+    case aiDataSharingNotAllowed
 
     public var errorDescription: String? {
         switch self {
@@ -19,6 +20,8 @@ public enum AIError: LocalizedError, Sendable {
             "The model returned empty text."
         case .missingAudioFile:
             "Recorded audio file could not be read."
+        case .aiDataSharingNotAllowed:
+            "Allow AI data sharing in the KeyDeck app (Settings → AI Data Sharing) to use voice and AI features."
         }
     }
 }
@@ -185,6 +188,9 @@ public struct VoiceProcessingService: Sendable {
         context: TextContextSnapshot,
         settings: KeyDeckSettings
     ) async throws -> VoiceAIOutput {
+        guard settings.aiDataSharingConsent else {
+            throw AIError.aiDataSharingNotAllowed
+        }
         guard let audioData = try? Data(contentsOf: audioURL), !audioData.isEmpty else {
             throw AIError.missingAudioFile
         }
@@ -238,6 +244,9 @@ public struct VoiceProcessingService: Sendable {
     ) async throws -> (text: String, provider: AIProvider, model: String) {
         if action == .raw {
             return (rawTranscript, settings.tweakProvider, "raw-transcript")
+        }
+        guard settings.aiDataSharingConsent else {
+            throw AIError.aiDataSharingNotAllowed
         }
 
         let prompts = PromptBuilder.tweakPrompts(

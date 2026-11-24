@@ -193,6 +193,46 @@ struct KeyDeckKitTests {
         #expect(decoded == workflows)
         #expect(decoded.count >= 3)
     }
+
+    @Test("AI requests are blocked until the user grants AI data sharing consent (Guideline 5.1.2(i))")
+    func aiRequestsRequireConsent() async throws {
+        let settings = KeyDeckSettings.standard
+        #expect(settings.aiDataSharingConsent == false)
+        #expect(settings.sendSurroundingContext == false)
+
+        let service = VoiceProcessingService()
+        await #expect(throws: AIError.self) {
+            _ = try await service.tweakText(
+                action: .shorter, rawTranscript: "hello", currentOutput: "hello", settings: settings
+            )
+        }
+        await #expect(throws: AIError.self) {
+            _ = try await service.processAudio(
+                audioURL: URL(fileURLWithPath: "/nonexistent.m4a"),
+                mode: .rambler, context: TextContextSnapshot(), settings: settings
+            )
+        }
+
+        // Raw restore is local-only and stays available without consent.
+        let raw = try await service.tweakText(
+            action: .raw, rawTranscript: "raw text", currentOutput: "clean", settings: settings
+        )
+        #expect(raw.text == "raw text")
+    }
+
+    @Test("Older settings files without the consent key decode to consent = false")
+    func legacySettingsDefaultToNoConsent() throws {
+        let legacy = Data(#"{"voicePipeline":"geminiSinglePass","enableHaptics":true}"#.utf8)
+        let decoded = try JSONDecoder().decode(KeyDeckSettings.self, from: legacy)
+        #expect(decoded.aiDataSharingConsent == false)
+    }
+
+    @Test("Legacy 'manual only' idle timeout (0) decodes to a bounded default (Guideline 2.5.4)")
+    func legacyManualOnlyTimeoutIsBounded() throws {
+        let legacy = Data(#"{"keepSessionAliveMinutes":0}"#.utf8)
+        let decoded = try JSONDecoder().decode(KeyDeckSettings.self, from: legacy)
+        #expect(decoded.keepSessionAliveMinutes > 0)
+    }
 }
 
 private extension PaletteSearchResult {

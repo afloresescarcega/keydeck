@@ -67,7 +67,7 @@ struct DashboardView: View {
             if viewModel.isSessionLive {
                 viewModel.killMic()
             } else {
-                viewModel.openCompanionToArm()
+                viewModel.showStartMicHint()
             }
         } label: {
             HStack(spacing: 6) {
@@ -91,7 +91,7 @@ struct DashboardView: View {
             .frame(height: 40)
         }
         .buttonStyle(KeycapButtonStyle(variant: .secondary, cornerRadius: 10))
-        .accessibilityLabel(viewModel.isSessionLive ? "Kill background microphone" : "Arm microphone")
+        .accessibilityLabel(viewModel.isSessionLive ? "Kill background microphone" : "Microphone off. Open the KeyDeck app to start it.")
     }
 
     // MARK: - Primary Tactile Voice Keycaps
@@ -146,7 +146,7 @@ struct DashboardView: View {
                             .fill(Color.green)
                             .frame(width: 7, height: 7)
                     } else {
-                        Image(systemName: "arrow.up.forward")
+                        Image(systemName: "mic.slash")
                             .font(.caption2.weight(.semibold))
                             .foregroundStyle(.tertiary)
                     }
@@ -173,7 +173,7 @@ struct DashboardView: View {
         if viewModel.isProcessing && viewModel.voiceState.activeMode == .rambler {
             return "Processing…"
         }
-        return viewModel.isSessionLive ? "Ready" : "Tap to arm & speak"
+        return viewModel.isSessionLive ? "Ready" : "Start mic in KeyDeck app"
     }
 
     private var voiceEditStatusText: String {
@@ -242,7 +242,7 @@ struct DashboardView: View {
 
     @ViewBuilder
     private var contextualStrip: some View {
-        if viewModel.lastInsertion != nil {
+        if viewModel.lastInsertion != nil && viewModel.statusMessage == nil {
             TweakBarView(viewModel: viewModel)
         } else if let status = viewModel.statusMessage {
             HStack(spacing: 6) {
@@ -315,13 +315,22 @@ struct DashboardView: View {
                 .font(.body.weight(.semibold))
                 .foregroundStyle(.orange)
             VStack(alignment: .leading, spacing: 2) {
-                Text("Allow Full Access Required")
+                Text("Full Access Needed for Voice")
                     .font(.subheadline.weight(.semibold))
-                Text("Settings → General → Keyboard → Keyboards → KeyDeck")
+                Text("Turn on in Settings → Keyboards → KeyDeck. Typing works without it.")
                     .font(.caption)
                     .foregroundStyle(.secondary)
+                    .lineLimit(2)
+                    .minimumScaleFactor(0.85)
             }
             Spacer()
+            Button(action: viewModel.openTypingMode) {
+                Text("Type")
+                    .font(.subheadline.weight(.semibold))
+                    .padding(.horizontal, 12)
+                    .frame(height: 34)
+            }
+            .buttonStyle(KeycapButtonStyle(variant: .secondary, cornerRadius: 9))
         }
         .padding(12)
         .background(Color.orange.opacity(0.12), in: RoundedRectangle(cornerRadius: 12, style: .continuous))
@@ -339,6 +348,15 @@ struct DashboardView: View {
                 }
                 .buttonStyle(KeycapButtonStyle(variant: .secondary, cornerRadius: 9))
             }
+
+            Button(action: viewModel.openTypingMode) {
+                Text("ABC")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(.primary)
+                    .frame(width: 50, height: 42)
+            }
+            .buttonStyle(KeycapButtonStyle(variant: .secondary, cornerRadius: 9))
+            .accessibilityLabel("Show letter keyboard")
 
             Button(action: viewModel.tapSpace) {
                 Text("space")

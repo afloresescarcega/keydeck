@@ -65,10 +65,13 @@ public struct KeyDeckSettings: Codable, Equatable, Sendable {
     public var personalInstructions: String
     public var accentColor: KeyDeckAccentColor
     public var enableHaptics: Bool
-    /// 0 means manual-only (never auto-sleep); otherwise minutes of idle before auto-killing the mic.
+    /// Minutes of idle before auto-killing the mic. Always bounded (> 0) so the background mic never stays on indefinitely.
     public var keepSessionAliveMinutes: Int
     /// When true, kills the background mic session immediately after each dictation finishes.
     public var autoDisarmAfterInsert: Bool
+    /// Explicit, revocable user permission to send audio/text to the selected third-party AI provider
+    /// (App Review Guideline 5.1.2(i)). No AI request is made while this is false.
+    public var aiDataSharingConsent: Bool
 
     public init( // NOSONAR: memberwise init of a plain data model
         voicePipeline: VoicePipelineMode = .geminiSinglePass,
@@ -77,13 +80,14 @@ public struct KeyDeckSettings: Codable, Equatable, Sendable {
         openAISTTModel: String = "gpt-4o-mini-transcribe",
         openAITextModel: String = "gpt-4o-mini",
         tweakProvider: AIProvider = .gemini,
-        sendSurroundingContext: Bool = true,
+        sendSurroundingContext: Bool = false,
         customDictionary: [String] = [],
         personalInstructions: String = "",
         accentColor: KeyDeckAccentColor = .blue,
         enableHaptics: Bool = true,
         keepSessionAliveMinutes: Int = 5,
-        autoDisarmAfterInsert: Bool = false
+        autoDisarmAfterInsert: Bool = false,
+        aiDataSharingConsent: Bool = false
     ) {
         self.voicePipeline = voicePipeline
         self.geminiVoiceModel = geminiVoiceModel
@@ -98,6 +102,7 @@ public struct KeyDeckSettings: Codable, Equatable, Sendable {
         self.enableHaptics = enableHaptics
         self.keepSessionAliveMinutes = keepSessionAliveMinutes
         self.autoDisarmAfterInsert = autoDisarmAfterInsert
+        self.aiDataSharingConsent = aiDataSharingConsent
     }
 
     public init(from decoder: any Decoder) throws {
@@ -114,8 +119,10 @@ public struct KeyDeckSettings: Codable, Equatable, Sendable {
         self.personalInstructions = try c.decodeIfPresent(String.self, forKey: .personalInstructions) ?? d.personalInstructions
         self.accentColor = try c.decodeIfPresent(KeyDeckAccentColor.self, forKey: .accentColor) ?? d.accentColor
         self.enableHaptics = try c.decodeIfPresent(Bool.self, forKey: .enableHaptics) ?? d.enableHaptics
-        self.keepSessionAliveMinutes = try c.decodeIfPresent(Int.self, forKey: .keepSessionAliveMinutes) ?? d.keepSessionAliveMinutes
+        let minutes = try c.decodeIfPresent(Int.self, forKey: .keepSessionAliveMinutes) ?? d.keepSessionAliveMinutes
+        self.keepSessionAliveMinutes = minutes > 0 ? minutes : d.keepSessionAliveMinutes
         self.autoDisarmAfterInsert = try c.decodeIfPresent(Bool.self, forKey: .autoDisarmAfterInsert) ?? d.autoDisarmAfterInsert
+        self.aiDataSharingConsent = try c.decodeIfPresent(Bool.self, forKey: .aiDataSharingConsent) ?? d.aiDataSharingConsent
     }
 
     public static let standard = KeyDeckSettings()

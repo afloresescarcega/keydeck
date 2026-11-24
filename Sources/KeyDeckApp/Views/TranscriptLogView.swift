@@ -72,6 +72,11 @@ private struct TranscriptRow: View {
                 Text(output)
                     .font(.body)
                     .lineLimit(5)
+                if entry.status == .failed, let error = entry.errorMessage {
+                    Text(error)
+                        .font(.footnote)
+                        .foregroundStyle(.orange)
+                }
             } else if let error = entry.errorMessage {
                 Text(error)
                     .font(.footnote)
