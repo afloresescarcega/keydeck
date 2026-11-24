@@ -1,4 +1,5 @@
 import SwiftUI
+import KeyDeckKit
 
 /// Explicit, in-app disclosure and permission before any data is sent to a third-party AI provider
 /// (App Review Guideline 5.1.2(i)). The choice is stored in `KeyDeckSettings.aiDataSharingConsent`
@@ -44,8 +45,8 @@ struct AIConsentView: View {
                     )
 
                     HStack(spacing: 16) {
-                        Link("Google API Terms", destination: URL(string: "https://ai.google.dev/gemini-api/terms")!)
-                        Link("OpenAI Privacy", destination: URL(string: "https://openai.com/policies/privacy-policy")!)
+                        Link("Google API Terms", destination: KeyDeckConstants.Links.geminiAPITerms)
+                        Link("OpenAI Privacy", destination: KeyDeckConstants.Links.openAIPrivacy)
                     }
                     .font(.footnote)
                 }

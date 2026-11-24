@@ -457,18 +457,6 @@ final class KeyboardViewModel {
         insertTextAction(text)
     }
 
-    func typeBackspace() {
-        triggerHaptic(.light)
-        lastInsertion = nil
-        deleteBackwardCountAction(1)
-    }
-
-    func typeReturn() {
-        triggerHaptic(.light)
-        lastInsertion = nil
-        insertTextAction("\n")
-    }
-
     // MARK: - Quick-Edit Keys
 
     func tapGlobe() {

@@ -218,6 +218,7 @@ struct KeyDeckKitTests {
             action: .raw, rawTranscript: "raw text", currentOutput: "clean", settings: settings
         )
         #expect(raw.text == "raw text")
+        #expect(AIError.aiDataSharingNotAllowed.errorDescription?.contains("AI Data Sharing") == true)
     }
 
     @Test("Older settings files without the consent key decode to consent = false")

@@ -34,8 +34,8 @@ struct TypingView: View {
 
             MiniQWERTYView(
                 onCharacter: viewModel.typeCharacter,
-                onBackspace: viewModel.typeBackspace,
-                onReturn: viewModel.typeReturn,
+                onBackspace: viewModel.tapBackspace,
+                onReturn: viewModel.tapReturn,
                 returnLabel: "return"
             )
         }

@@ -67,6 +67,8 @@ public enum KeyDeckConstants {
         // swiftlint:disable force_unwrapping
         public static let privacyPolicy = URL(string: "https://afloresescarcega.github.io/keydeck/privacy.html")!
         public static let support = URL(string: "https://github.com/afloresescarcega/keydeck/issues")!
+        public static let geminiAPITerms = URL(string: "https://ai.google.dev/gemini-api/terms")!
+        public static let openAIPrivacy = URL(string: "https://openai.com/policies/privacy-policy")!
         // swiftlint:enable force_unwrapping
     }
 
