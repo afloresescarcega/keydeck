@@ -201,17 +201,31 @@ struct KeyDeckKitTests {
         #expect(settings.sendSurroundingContext == false)
 
         let service = VoiceProcessingService()
-        await #expect(throws: AIError.self) {
+        let tweakError = await #expect(throws: AIError.self) {
             _ = try await service.tweakText(
                 action: .shorter, rawTranscript: "hello", currentOutput: "hello", settings: settings
             )
         }
-        await #expect(throws: AIError.self) {
+        #expect(tweakError.map(Self.isConsentError) == true)
+
+        let audioError = await #expect(throws: AIError.self) {
             _ = try await service.processAudio(
                 audioURL: URL(fileURLWithPath: "/nonexistent.m4a"),
                 mode: .rambler, context: TextContextSnapshot(), settings: settings
             )
         }
+        #expect(audioError.map(Self.isConsentError) == true)
+
+        // Control: with consent granted, the same call gets past the consent guard and fails for another reason.
+        var consented = settings
+        consented.aiDataSharingConsent = true
+        let consentedError = await #expect(throws: AIError.self) {
+            _ = try await service.processAudio(
+                audioURL: URL(fileURLWithPath: "/nonexistent.m4a"),
+                mode: .rambler, context: TextContextSnapshot(), settings: consented
+            )
+        }
+        #expect(consentedError.map(Self.isConsentError) == false)
 
         // Raw restore is local-only and stays available without consent.
         let raw = try await service.tweakText(
@@ -219,6 +233,11 @@ struct KeyDeckKitTests {
         )
         #expect(raw.text == "raw text")
         #expect(AIError.aiDataSharingNotAllowed.errorDescription?.contains("AI Data Sharing") == true)
+    }
+
+    private static func isConsentError(_ error: AIError) -> Bool {
+        if case .aiDataSharingNotAllowed = error { return true }
+        return false
     }
 
     @Test("Older settings files without the consent key decode to consent = false")
