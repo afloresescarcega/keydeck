@@ -27,6 +27,7 @@ Apple's native QWERTY keyboard already nailed swipe typing and autocorrect, so K
 - **Voice Edit** — Select text (or use what's in the field) and speak an instruction (*"make this shorter"*, *"casual tone"*, *"translate to Spanish"*).
 - **One-Tap Undo & Quick Tweaks** — Immediately refine inserted text (`Undo`, `Shorter`, `Bullets`, `Casual`, `Work`, `Raw`).
 - **Explicit `Kill Mic` Control** — Persistent background audio session for instant in-place recording with a Dynamic Island Live Activity, plus one-tap **`Kill Mic`** from the keyboard, Dynamic Island, companion app, idle auto-kill, or auto-kill after every dictation.
+- **ABC Typing Mode** — Tap `ABC` for a letter keyboard that types straight into any field; works without Full Access or network.
 - **Command Palette + Compact Mini-QWERTY** — Tap the search bar to run:
   - **Inline Math Calculator** (`18% of 240`, `(12 + 8) * 3`, `sqrt(144)`)
   - **Unit & Timezone Conversions** (`72f to c`, `10 km to mi`, `3pm est to cst`, `now tokyo`)

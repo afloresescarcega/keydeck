@@ -4,5 +4,4 @@
 KEYDECK_DEVELOPMENT_TEAM = YOUR_TEAM_ID
 KEYDECK_BUNDLE_PREFIX = com.yourname
 KEYDECK_APP_GROUP = group.com.yourname.keydeck
-KEYDECK_ICLOUD_CONTAINER = iCloud.com.yourname.keydeck
 KEYDECK_KEYCHAIN_SUFFIX = com.yourname.keydeck

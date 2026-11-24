@@ -66,7 +66,7 @@ struct VoiceSessionLiveActivity: Widget {
                 Image(systemName: iconName(for: context.state))
                     .foregroundStyle(accentColor(for: context.state.phase))
             }
-            .widgetURL(KeyDeckConstants.DeepLinks.disarmSession())
+            .widgetURL(URL(string: "\(KeyDeckConstants.urlScheme)://voice"))
         }
     }
 

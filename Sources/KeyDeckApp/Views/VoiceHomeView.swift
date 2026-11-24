@@ -11,7 +11,7 @@ struct VoiceHomeView: View {
     var body: some View {
         NavigationStack {
             List {
-                if sessionManager.launchedFromKeyboardBanner && sessionManager.isSessionArmed {
+                if sessionManager.isSessionArmed {
                     Section {
                         Label {
                             VStack(alignment: .leading, spacing: 2) {
@@ -112,7 +112,7 @@ struct VoiceHomeView: View {
                 Button {
                     Task { await sessionManager.armSession() }
                 } label: {
-                    Label("Arm Mic for Keyboard", systemImage: "mic.fill")
+                    Label("Start Mic", systemImage: "mic.fill")
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
@@ -220,7 +220,8 @@ struct VoiceHomeView: View {
 
     private var setupSection: some View {
         let hasAnyKey = sessionManager.hasAPIKey(.gemini) || sessionManager.hasAPIKey(.openAI)
-        return Section("Setup") {
+        let consented = sessionManager.settings.aiDataSharingConsent
+        return Section {
             Button {
                 selectedTab = .settings
             } label: {
@@ -251,6 +252,26 @@ struct VoiceHomeView: View {
                         .foregroundStyle(.tertiary)
                 }
             }
+
+            Button {
+                selectedTab = .settings
+            } label: {
+                HStack {
+                    Label(
+                        consented ? "AI Data Sharing Allowed" : "Review AI Data Sharing",
+                        systemImage: consented ? "checkmark.circle.fill" : "hand.raised.fill"
+                    )
+                    .foregroundStyle(consented ? Color.green : Color.primary)
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.footnote)
+                        .foregroundStyle(.tertiary)
+                }
+            }
+        } header: {
+            Text("Setup")
+        } footer: {
+            Text("To add the keyboard: open iOS Settings → General → Keyboard → Keyboards → Add New Keyboard → KeyDeck, then tap KeyDeck and turn on Allow Full Access (needed for voice and AI features; the calculator, symbols, and basic keys work without it). In any app, switch keyboards with the globe key.")
         }
     }
 

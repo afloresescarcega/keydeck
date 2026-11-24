@@ -17,7 +17,7 @@ settings:
     SWIFT_VERSION: "6.0"
     MARKETING_VERSION: "1.0.0"
     CURRENT_PROJECT_VERSION: "1"
-    TARGETED_DEVICE_FAMILY: "1,2"
+    TARGETED_DEVICE_FAMILY: "1"
     ENABLE_USER_SCRIPT_SANDBOXING: YES
 
 packages:
@@ -47,18 +47,11 @@ targets:
         NSSupportsLiveActivities: true
         UIBackgroundModes:
           - audio
-        UILaunchScreen:
-          UIColorName: ""
-        UIRequiresFullScreen: true
+        UILaunchScreen: {}
         UIApplicationSceneManifest:
           UIApplicationSupportsMultipleScenes: false
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
-          - UIInterfaceOrientationLandscapeLeft
-          - UIInterfaceOrientationLandscapeRight
-        "UISupportedInterfaceOrientations~ipad":
-          - UIInterfaceOrientationPortrait
-          - UIInterfaceOrientationPortraitUpsideDown
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
         CFBundleURLTypes:
@@ -72,16 +65,11 @@ targets:
           - "$(KEYDECK_APP_GROUP)"
         keychain-access-groups:
           - "$(AppIdentifierPrefix)$(KEYDECK_KEYCHAIN_SUFFIX)"
-        com.apple.developer.icloud-container-identifiers:
-          - "$(KEYDECK_ICLOUD_CONTAINER)"
-        com.apple.developer.icloud-services:
-          - CloudDocuments
-        com.apple.developer.ubiquity-container-identifiers:
-          - "$(KEYDECK_ICLOUD_CONTAINER)"
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: "$(KEYDECK_BUNDLE_PREFIX).keydeck"
         PRODUCT_NAME: KeyDeck
+        TARGETED_DEVICE_FAMILY: "1"
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         CODE_SIGN_STYLE: Automatic
@@ -110,7 +98,7 @@ targets:
           NSAllowsArbitraryLoads: false
         NSExtension:
           NSExtensionAttributes:
-            IsASCIICapable: false
+            IsASCIICapable: true
             PrefersRightToLeft: false
             PrimaryLanguage: en-US
             RequestsOpenAccess: true
@@ -127,6 +115,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: "$(KEYDECK_BUNDLE_PREFIX).keydeck.keyboard"
         PRODUCT_NAME: KeyDeckKeyboard
+        TARGETED_DEVICE_FAMILY: "1"
         CODE_SIGN_STYLE: Automatic
         SKIP_INSTALL: YES
     dependencies:
@@ -156,6 +145,7 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: "$(KEYDECK_BUNDLE_PREFIX).keydeck.widgets"
         PRODUCT_NAME: KeyDeckWidgets
+        TARGETED_DEVICE_FAMILY: "1"
         CODE_SIGN_STYLE: Automatic
         SKIP_INSTALL: YES
     dependencies:

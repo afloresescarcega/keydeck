@@ -31,5 +31,10 @@ struct ContentView: View {
                 }
                 .tag(AppTab.settings)
         }
+        .sheet(isPresented: $sessionManager.consentPromptRequested) {
+            AIConsentView { allowed in
+                sessionManager.settings.aiDataSharingConsent = allowed
+            }
+        }
     }
 }

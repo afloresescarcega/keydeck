@@ -77,6 +77,17 @@ struct CommandPaletteView: View {
             if viewModel.paletteQuery.isEmpty {
                 filterMenuButton
             }
+
+            if viewModel.needsGlobeKey {
+                Button(action: viewModel.tapGlobe) {
+                    Image(systemName: "globe")
+                        .font(.subheadline)
+                        .foregroundStyle(.primary)
+                        .frame(width: 34, height: 34)
+                }
+                .buttonStyle(KeycapButtonStyle(variant: .secondary, cornerRadius: 9))
+                .accessibilityLabel("Next keyboard")
+            }
         }
     }
 
@@ -108,6 +119,13 @@ struct CommandPaletteView: View {
         let results = viewModel.paletteResults
         return ScrollView(.vertical, showsIndicators: false) {
             LazyVStack(spacing: 4) {
+                if let status = viewModel.statusMessage {
+                    Text(status)
+                        .font(.caption)
+                        .foregroundStyle(.secondary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 10)
+                }
                 if viewModel.paletteFilter == .clipboard {
                     Button {
                         viewModel.captureCurrentClipboard(pin: false)

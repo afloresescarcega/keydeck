@@ -9,17 +9,19 @@
 /* Begin PBXBuildFile section */
 		0F28829193133D4E3644AAA4 /* MiniQWERTYView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 827BD79F6B19B46DDB8A7DCA /* MiniQWERTYView.swift */; };
 		10E761F2D53DF0AF1F9A6529 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A1C70E12180EB4B10BEED3C6 /* PrivacyInfo.xcprivacy */; };
+		10EB163F95F8BCC57192DE24 /* CommandPaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4BB13A8B6232D0AFA488ED /* CommandPaletteView.swift */; };
 		1BF0E35C9730693B13FDADEB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 594CDDEDBE308D6E21E3A17B /* Assets.xcassets */; };
 		2B6856ECC4C23BD6647D86AB /* VoiceSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A260E204F49A1A366E1CB64 /* VoiceSessionManager.swift */; };
-		2B86ACEC01E90CA57286D142 /* CommandPaletteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 610FBB3AA603994E88BBC54D /* CommandPaletteView.swift */; };
 		31328931A04643206B16C68B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = A2A8500A492F66FD3095AED7 /* PrivacyInfo.xcprivacy */; };
 		341F9461025646ACAE593051 /* KeyboardRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C7E4BA21530033F8A46F7E /* KeyboardRootView.swift */; };
 		37E5D8CEE409B03979AF3FE3 /* KeyDeckKeyboard.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = E723B80FB011EB38B0F60735 /* KeyDeckKeyboard.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		3B7EE48C3A7AD1351E8765AF /* VoiceHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C81F7F9D07B16A9AF646DA /* VoiceHomeView.swift */; };
+		3DD53130E2FC0D2E2AF75D44 /* AIConsentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3DDB0FA6CC4DEF9895FACB6 /* AIConsentView.swift */; };
 		47177A1DDD5674F8450853AB /* LiveAudioCaptureEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C2518BD49F1EDF9ADD396B1 /* LiveAudioCaptureEngine.swift */; };
 		4C74287E2177D68D34875606 /* TranscriptLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74936737F6E643EF4EE151E3 /* TranscriptLogView.swift */; };
 		53A66931E39A63F487F4EF82 /* TweakBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8288B2B2F770B176FE64CF /* TweakBarView.swift */; };
 		6567207C464E6B229A9DCB66 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7554B54131AA39B523922499 /* PrivacyInfo.xcprivacy */; };
+		74EFB2F513569C44267423EA /* TypingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F36501AEAFA0EA2EF67242D /* TypingView.swift */; };
 		78FDF8C997CA64352683918C /* VoiceSessionLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F85BAD5B4A415193F26C969 /* VoiceSessionLiveActivity.swift */; };
 		815D4AEDFADBDAF08EF2FF9A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D53D6DA913A3028F398C1ED /* ContentView.swift */; };
 		821AF64B67A7426A49722831 /* KeyboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34B2C76C1457225677A56E3E /* KeyboardViewModel.swift */; };
@@ -72,6 +74,7 @@
 
 /* Begin PBXFileReference section */
 		0D5F256D6203A20B2F3D9DF9 /* KeyDeckApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = KeyDeckApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F36501AEAFA0EA2EF67242D /* TypingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypingView.swift; sourceTree = "<group>"; };
 		25869971857DEB6BFE253F04 /* KeyboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardViewController.swift; sourceTree = "<group>"; };
 		2CE80BA8528A956D50041A2C /* KeyDeckKeyboard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KeyDeckKeyboard.entitlements; sourceTree = "<group>"; };
 		2F85BAD5B4A415193F26C969 /* VoiceSessionLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceSessionLiveActivity.swift; sourceTree = "<group>"; };
@@ -86,7 +89,6 @@
 		4C2518BD49F1EDF9ADD396B1 /* LiveAudioCaptureEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAudioCaptureEngine.swift; sourceTree = "<group>"; };
 		4CD82EC5FF61DC594F1B0342 /* KeyDeckApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = KeyDeckApp.entitlements; sourceTree = "<group>"; };
 		594CDDEDBE308D6E21E3A17B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		610FBB3AA603994E88BBC54D /* CommandPaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandPaletteView.swift; sourceTree = "<group>"; };
 		741FBF5170B573DBC3FD97F5 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		7476FE2E4860CC7BFD58B805 /* KeyDeckKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = KeyDeckKit; path = Packages/KeyDeckKit; sourceTree = SOURCE_ROOT; };
 		74936737F6E643EF4EE151E3 /* TranscriptLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptLogView.swift; sourceTree = "<group>"; };
@@ -99,9 +101,11 @@
 		B3FEBFF1774E48747D408CD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		B4254199ACE779E0008910D8 /* KeyboardDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDesign.swift; sourceTree = "<group>"; };
 		BBFEE25DBEAD6A4C8C9AF7F2 /* KeyDeckWidgetsBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyDeckWidgetsBundle.swift; sourceTree = "<group>"; };
+		C3DDB0FA6CC4DEF9895FACB6 /* AIConsentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIConsentView.swift; sourceTree = "<group>"; };
 		CAC9D44EDE2142CA69C159AB /* WorkflowsPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowsPlaceholderView.swift; sourceTree = "<group>"; };
 		D5FA173F9B9DD3FED5EAEF40 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		D6C7E4BA21530033F8A46F7E /* KeyboardRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardRootView.swift; sourceTree = "<group>"; };
+		DF4BB13A8B6232D0AFA488ED /* CommandPaletteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandPaletteView.swift; sourceTree = "<group>"; };
 		E723B80FB011EB38B0F60735 /* KeyDeckKeyboard.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = KeyDeckKeyboard.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB31EAC0A5B8C802738B89D8 /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
 		F3DAE9B4EC92BC43B0D87BF2 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
@@ -196,12 +200,13 @@
 		58927C926976C2E64F6C4FA7 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				610FBB3AA603994E88BBC54D /* CommandPaletteView.swift */,
+				DF4BB13A8B6232D0AFA488ED /* CommandPaletteView.swift */,
 				F3DAE9B4EC92BC43B0D87BF2 /* DashboardView.swift */,
 				B4254199ACE779E0008910D8 /* KeyboardDesign.swift */,
 				D6C7E4BA21530033F8A46F7E /* KeyboardRootView.swift */,
 				827BD79F6B19B46DDB8A7DCA /* MiniQWERTYView.swift */,
 				3F8288B2B2F770B176FE64CF /* TweakBarView.swift */,
+				1F36501AEAFA0EA2EF67242D /* TypingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -253,6 +258,7 @@
 		C78DBB73046E32980E22E333 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C3DDB0FA6CC4DEF9895FACB6 /* AIConsentView.swift */,
 				3D53D6DA913A3028F398C1ED /* ContentView.swift */,
 				741FBF5170B573DBC3FD97F5 /* SettingsView.swift */,
 				74936737F6E643EF4EE151E3 /* TranscriptLogView.swift */,
@@ -408,7 +414,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2B86ACEC01E90CA57286D142 /* CommandPaletteView.swift in Sources */,
+				10EB163F95F8BCC57192DE24 /* CommandPaletteView.swift in Sources */,
 				D8B265AFE86B279BC1E11961 /* DashboardView.swift in Sources */,
 				A050469172E333A21A3F9F55 /* KeyboardDesign.swift in Sources */,
 				341F9461025646ACAE593051 /* KeyboardRootView.swift in Sources */,
@@ -416,6 +422,7 @@
 				821AF64B67A7426A49722831 /* KeyboardViewModel.swift in Sources */,
 				0F28829193133D4E3644AAA4 /* MiniQWERTYView.swift in Sources */,
 				53A66931E39A63F487F4EF82 /* TweakBarView.swift in Sources */,
+				74EFB2F513569C44267423EA /* TypingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,6 +430,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DD53130E2FC0D2E2AF75D44 /* AIConsentView.swift in Sources */,
 				815D4AEDFADBDAF08EF2FF9A /* ContentView.swift in Sources */,
 				852BD701785AE4CFFF794160 /* KeyDeckApp.swift in Sources */,
 				47177A1DDD5674F8450853AB /* LiveAudioCaptureEngine.swift in Sources */,
@@ -524,7 +532,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -543,7 +551,7 @@
 				PRODUCT_NAME = KeyDeckKeyboard;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -563,7 +571,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(KEYDECK_BUNDLE_PREFIX).keydeck";
 				PRODUCT_NAME = KeyDeck;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -582,7 +590,7 @@
 				PRODUCT_NAME = KeyDeckKeyboard;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -644,7 +652,7 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -664,7 +672,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "$(KEYDECK_BUNDLE_PREFIX).keydeck";
 				PRODUCT_NAME = KeyDeck;
 				SDKROOT = iphoneos;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -683,7 +691,7 @@
 				PRODUCT_NAME = KeyDeckWidgets;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -702,7 +710,7 @@
 				PRODUCT_NAME = KeyDeckWidgets;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};

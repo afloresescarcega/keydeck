@@ -46,9 +46,9 @@
   <main>
     <a href="index.html">← Back to KeyDeck</a>
     <h1>Privacy Policy</h1>
-    <p class="meta">Effective Date: November 22, 2026 · KeyDeck (MIT Open Source)</p>
+    <p class="meta">Effective Date: November 23, 2026 · KeyDeck (MIT Open Source)</p>
 
-    <p>KeyDeck collects <strong>zero</strong> personal data, analytics, crash telemetry, or advertising identifiers. There is no KeyDeck backend server or cloud account.</p>
+    <p>The developer of KeyDeck collects <strong>no</strong> personal data, analytics, crash telemetry, or advertising identifiers, and KeyDeck does not track you. There is no KeyDeck backend server or account. The only data that leaves your device is what you choose to send to a third-party AI provider, described in section 2.</p>
 
     <h2>1. Data Stored On Your Device</h2>
     <ul>
@@ -59,12 +59,20 @@
 
     <h2>2. Direct Third-Party AI Requests (BYOK)</h2>
     <p>When you explicitly trigger <strong>Rambler</strong>, <strong>Voice Edit</strong>, or a <strong>Quick Tweak</strong>, your audio or text is sent directly from your iPhone over HTTPS (using ephemeral, zero-cache network sessions) to Google Gemini or OpenAI under your own API key.</p>
-    <p>If <strong>Send Surrounding Field Context</strong> is enabled (toggleable in one tap from the keyboard), nearby text may be included to improve dictation accuracy. KeyDeck <strong>never</strong> captures text from password or secure fields (<code>isSecureTextEntry == true</code>).</p>
+    <p>If <strong>Send Surrounding Field Context</strong> is enabled (off by default; toggleable in one tap from the keyboard), nearby text may be included to improve dictation accuracy. KeyDeck <strong>never</strong> captures text from password or secure fields (<code>isSecureTextEntry == true</code>).</p>
+    <p><strong>Your permission comes first.</strong> KeyDeck shows a disclosure naming Google and OpenAI and asks for your explicit permission before any data is sent. Nothing is sent until you tap <em>Allow AI Data Sharing</em>. You can withdraw permission at any time in <em>KeyDeck → Settings → AI Data Sharing</em>; while it is off, KeyDeck makes no AI requests.</p>
+    <p><strong>What is sent:</strong> your voice recording, the text you ask KeyDeck to edit, your custom dictionary and style instructions, and (only if enabled) surrounding field text. <strong>Retention:</strong> the provider processes and may temporarily retain your request under its API terms (for example, for abuse monitoring). See <a href="https://ai.google.dev/gemini-api/terms">Google Gemini API Additional Terms</a> and <a href="https://openai.com/policies/privacy-policy">OpenAI's Privacy Policy</a>. KeyDeck itself never receives this data.</p>
 
     <h2>3. Why "Allow Full Access" Is Required</h2>
     <p>iOS requires keyboard extensions to request <strong>Allow Full Access</strong> in order to communicate with the KeyDeck companion app via App Groups (for microphone capture, snippets, and clipboard items) and to read your API keys from the Shared Keychain for Quick Tweaks. KeyDeck never logs keystrokes.</p>
 
-    <h2>4. Contact</h2>
+    <h2>4. Deleting Your Data</h2>
+    <p>Delete individual history entries by swiping in the History tab, clear API keys in Settings, or delete the app to remove all KeyDeck data from your device. Requests already sent to Google or OpenAI are managed through your account with that provider.</p>
+
+    <h2>5. Children</h2>
+    <p>KeyDeck is not directed to children under 13 and requires an API key from a third-party provider.</p>
+
+    <h2>6. Contact</h2>
     <p>Questions or security reports: <a href="https://github.com/afloresescarcega/keydeck">github.com/afloresescarcega/keydeck</a>.</p>
   </main>
 </body>

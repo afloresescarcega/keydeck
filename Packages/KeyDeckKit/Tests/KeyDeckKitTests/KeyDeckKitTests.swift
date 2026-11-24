@@ -193,6 +193,66 @@ struct KeyDeckKitTests {
         #expect(decoded == workflows)
         #expect(decoded.count >= 3)
     }
+
+    @Test("AI requests are blocked until the user grants AI data sharing consent (Guideline 5.1.2(i))")
+    func aiRequestsRequireConsent() async throws {
+        let settings = KeyDeckSettings.standard
+        #expect(settings.aiDataSharingConsent == false)
+        #expect(settings.sendSurroundingContext == false)
+
+        let service = VoiceProcessingService()
+        let tweakError = await #expect(throws: AIError.self) {
+            _ = try await service.tweakText(
+                action: .shorter, rawTranscript: "hello", currentOutput: "hello", settings: settings
+            )
+        }
+        #expect(tweakError.map(Self.isConsentError) == true)
+
+        let audioError = await #expect(throws: AIError.self) {
+            _ = try await service.processAudio(
+                audioURL: URL(fileURLWithPath: "/nonexistent.m4a"),
+                mode: .rambler, context: TextContextSnapshot(), settings: settings
+            )
+        }
+        #expect(audioError.map(Self.isConsentError) == true)
+
+        // Control: with consent granted, the same call gets past the consent guard and fails for another reason.
+        var consented = settings
+        consented.aiDataSharingConsent = true
+        let consentedError = await #expect(throws: AIError.self) {
+            _ = try await service.processAudio(
+                audioURL: URL(fileURLWithPath: "/nonexistent.m4a"),
+                mode: .rambler, context: TextContextSnapshot(), settings: consented
+            )
+        }
+        #expect(consentedError.map(Self.isConsentError) == false)
+
+        // Raw restore is local-only and stays available without consent.
+        let raw = try await service.tweakText(
+            action: .raw, rawTranscript: "raw text", currentOutput: "clean", settings: settings
+        )
+        #expect(raw.text == "raw text")
+        #expect(AIError.aiDataSharingNotAllowed.errorDescription?.contains("AI Data Sharing") == true)
+    }
+
+    private static func isConsentError(_ error: AIError) -> Bool {
+        if case .aiDataSharingNotAllowed = error { return true }
+        return false
+    }
+
+    @Test("Older settings files without the consent key decode to consent = false")
+    func legacySettingsDefaultToNoConsent() throws {
+        let legacy = Data(#"{"voicePipeline":"geminiSinglePass","enableHaptics":true}"#.utf8)
+        let decoded = try JSONDecoder().decode(KeyDeckSettings.self, from: legacy)
+        #expect(decoded.aiDataSharingConsent == false)
+    }
+
+    @Test("Legacy 'manual only' idle timeout (0) decodes to a bounded default (Guideline 2.5.4)")
+    func legacyManualOnlyTimeoutIsBounded() throws {
+        let legacy = Data(#"{"keepSessionAliveMinutes":0}"#.utf8)
+        let decoded = try JSONDecoder().decode(KeyDeckSettings.self, from: legacy)
+        #expect(decoded.keepSessionAliveMinutes > 0)
+    }
 }
 
 private extension PaletteSearchResult {

@@ -25,6 +25,9 @@ final class KeyboardViewModel {
 
     // Phase 2: Command Palette, Snippets & Clipboard
     private(set) var isPaletteOpen: Bool = false
+    /// Full-keyboard typing mode: the mini-QWERTY types straight into the host text field.
+    /// Works without Full Access and without network (App Review Guideline 4.4.1).
+    private(set) var isTypingMode: Bool = false
     var paletteQuery: String = ""
     var paletteFilter: PaletteFilter = .all
     private(set) var workflows: [KeyDeckWorkflow] = []
@@ -42,7 +45,6 @@ final class KeyboardViewModel {
     private let insertTextAction: (String) -> Void
     private let deleteBackwardCountAction: (Int) -> Void
     private let advanceKeyboardAction: () -> Void
-    private let openURLAction: (URL) -> Void
     private let onHeightModeChanged: (Bool) -> Void
 
     private var pendingReplacedTextByRequestID: [UUID: String] = [:]
@@ -56,7 +58,6 @@ final class KeyboardViewModel {
         insertText: @escaping (String) -> Void,
         deleteBackwardCount: @escaping (Int) -> Void,
         advanceKeyboard: @escaping () -> Void,
-        openURL: @escaping (URL) -> Void,
         onHeightModeChanged: @escaping (Bool) -> Void = { _ in /* Optional: hosts that don't resize ignore height changes. */ }
     ) {
         self.store = store
@@ -67,7 +68,6 @@ final class KeyboardViewModel {
         self.insertTextAction = insertText
         self.deleteBackwardCountAction = deleteBackwardCount
         self.advanceKeyboardAction = advanceKeyboard
-        self.openURLAction = openURL
         self.onHeightModeChanged = onHeightModeChanged
     }
 
@@ -170,6 +170,7 @@ final class KeyboardViewModel {
         if let first = paletteResults.first {
             executePaletteResult(first)
         } else if !paletteQuery.isEmpty {
+            lastInsertion = nil
             insertTextAction(paletteQuery)
             closePalette()
         }
@@ -230,6 +231,7 @@ final class KeyboardViewModel {
         )
         if let expanded = SnippetEngine.expand(workflow: workflow, context: snippetCtx) {
             triggerHaptic(.success)
+            lastInsertion = nil
             insertTextAction(expanded)
             showStatus("Inserted \(workflow.name)")
         }
@@ -278,12 +280,38 @@ final class KeyboardViewModel {
             return
         }
 
+        guard settings.aiDataSharingConsent else {
+            showStatus("Allow AI Data Sharing in the KeyDeck app first.")
+            return
+        }
+
         if isRecording {
             stopRecording()
             return
         }
 
-        let context = readContext()
+        // Guideline 4.4.1: keyboards must not launch other apps. The user starts the mic
+        // in the KeyDeck app themselves; the keyboard only explains how.
+        guard voiceState.isSessionLive() else {
+            showStartMicHint()
+            return
+        }
+
+        // Data minimization: with Send Surrounding Field Context off, Rambler captures no field text and
+        // Voice Edit captures only its target (the selection, or text before the cursor).
+        let fullContext = readContext()
+        let context: TextContextSnapshot
+        if settings.sendSurroundingContext {
+            context = fullContext
+        } else if mode == .voiceEdit {
+            context = TextContextSnapshot(
+                beforeCursor: fullContext.hasSelection ? "" : fullContext.beforeCursor,
+                afterCursor: "",
+                selectedText: fullContext.selectedText
+            )
+        } else {
+            context = TextContextSnapshot()
+        }
         let requestID = UUID()
         if mode == .voiceEdit {
             pendingReplacedTextByRequestID[requestID] = context.effectiveTargetText
@@ -296,17 +324,11 @@ final class KeyboardViewModel {
             context: context
         )
 
-        if voiceState.isSessionLive() {
-            store.savePendingCommand(command, notify: true)
-            voiceState.phase = .recording
-            voiceState.activeMode = mode
-            voiceState.activeRequestID = requestID
-            voiceState.recordingStartedAt = Date()
-        } else {
-            store.savePendingCommand(command, notify: false)
-            let url = KeyDeckConstants.DeepLinks.startVoice(mode: mode, requestID: requestID)
-            openURLAction(url)
-        }
+        store.savePendingCommand(command, notify: true)
+        voiceState.phase = .recording
+        voiceState.activeMode = mode
+        voiceState.activeRequestID = requestID
+        voiceState.recordingStartedAt = Date()
     }
 
     func stopRecording() {
@@ -338,13 +360,22 @@ final class KeyboardViewModel {
         showStatus("Mic killed")
     }
 
-    func openCompanionToArm() {
+    /// Explains how to start the mic. Deliberately does not open the KeyDeck app (Guideline 4.4.1).
+    func showStartMicHint() {
         triggerHaptic(.light)
-        openURLAction(KeyDeckConstants.DeepLinks.armSession())
+        guard hasFullAccess else {
+            showStatus("Enable Allow Full Access in iOS Keyboard Settings to use voice.")
+            return
+        }
+        showStatus("Mic is off. Open the KeyDeck app and tap Start Mic, then come back.")
     }
 
     func togglePrivacyContext() {
         triggerHaptic(.light)
+        guard hasFullAccess else {
+            showStatus("Enable Allow Full Access in iOS Keyboard Settings to change this.")
+            return
+        }
         settings.sendSurroundingContext.toggle()
         store.saveSettings(settings)
         showStatus(settings.sendSurroundingContext ? "Field context on" : "Field context off (private)")
@@ -408,6 +439,24 @@ final class KeyboardViewModel {
         lastInsertion = record
     }
 
+    // MARK: - Typing Mode
+
+    func openTypingMode() {
+        triggerHaptic(.light)
+        isTypingMode = true
+    }
+
+    func closeTypingMode() {
+        triggerHaptic(.light)
+        isTypingMode = false
+    }
+
+    func typeCharacter(_ text: String) {
+        triggerHaptic(.light)
+        lastInsertion = nil
+        insertTextAction(text)
+    }
+
     // MARK: - Quick-Edit Keys
 
     func tapGlobe() {
@@ -415,18 +464,22 @@ final class KeyboardViewModel {
         advanceKeyboardAction()
     }
 
+    // Manual edits invalidate Undo/Tweak, which delete `insertedText.count` characters before the cursor.
     func tapSpace() {
         triggerHaptic(.light)
+        lastInsertion = nil
         insertTextAction(" ")
     }
 
     func tapReturn() {
         triggerHaptic(.light)
+        lastInsertion = nil
         insertTextAction("\n")
     }
 
     func tapBackspace() {
         triggerHaptic(.light)
+        lastInsertion = nil
         deleteBackwardCountAction(1)
     }
 
